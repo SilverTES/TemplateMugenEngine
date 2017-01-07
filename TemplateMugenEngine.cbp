@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="TemplateMugenEngine" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/TemplateMugenEngine" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="include" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/TemplateMugenEngine" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-std=c++14" />
+			<Add option="-fexceptions" />
+			<Add directory="deps" />
+			<Add directory="include" />
+			<Add directory="deps/Allegro5211_MinGW4814_Rel3/include" />
+			<Add directory="deps/lua-5.3.3_Win32_mingw4_lib/include" />
+			<Add directory="deps/SFML/include" />
+		</Compiler>
+		<Linker>
+			<Add option="-lMugenEngine" />
+			<Add option="-lallegro_monolith-static" />
+			<Add option="-lsfml-window-s" />
+			<Add option="-lsfml-system-s" />
+			<Add option="-static" />
+			<Add option="-ldsound" />
+			<Add option="-ldumb" />
+			<Add option="-lFLAC" />
+			<Add option="-lvorbisfile" />
+			<Add option="-lvorbis" />
+			<Add option="-lfreetype" />
+			<Add option="-logg" />
+			<Add option="-lpng16" />
+			<Add option="-lphysfs" />
+			<Add option="-lzlibstatic" />
+			<Add option="-lgdiplus" />
+			<Add option="-luuid" />
+			<Add option="-lkernel32" />
+			<Add option="-lwinmm" />
+			<Add option="-lpsapi" />
+			<Add option="-lopengl32" />
+			<Add option="-lglu32" />
+			<Add option="-luser32" />
+			<Add option="-lcomdlg32" />
+			<Add option="-lgdi32" />
+			<Add option="-lshell32" />
+			<Add option="-lole32" />
+			<Add option="-ladvapi32" />
+			<Add option="-lws2_32" />
+			<Add option="-lshlwapi" />
+			<Add option="-llua53" />
+			<Add directory="deps" />
+			<Add directory="deps/Allegro5211_MinGW4814_Rel3/lib" />
+			<Add directory="deps/lua-5.3.3_Win32_mingw4_lib" />
+			<Add directory="deps/SFML/lib" />
+		</Linker>
+		<Unit filename="data/config.json" />
+		<Unit filename="include/Ball.h" />
+		<Unit filename="include/Base.h" />
+		<Unit filename="include/Entity.h" />
+		<Unit filename="include/EntityManager.h" />
+		<Unit filename="include/Game.h" />
+		<Unit filename="include/IContainer.h" />
+		<Unit filename="include/IPlayable.h" />
+		<Unit filename="include/Scene.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="src/Ball.cpp" />
+		<Unit filename="src/Base.cpp" />
+		<Unit filename="src/Entity.cpp" />
+		<Unit filename="src/EntityManager.cpp" />
+		<Unit filename="src/Game.cpp" />
+		<Unit filename="src/IContainer.cpp" />
+		<Unit filename="src/IPlayable.cpp" />
+		<Unit filename="src/Scene.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

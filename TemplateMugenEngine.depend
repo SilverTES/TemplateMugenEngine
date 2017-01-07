@@ -1,0 +1,843 @@
+# depslib dependency file v1.0
+1483829437 source:p:\-- project dev --\-- game project --\templatemugenengine\main.cpp
+	"Game.h"
+
+1483831448 p:\-- project dev --\-- game project --\templatemugenengine\include\game.h
+	"MugenEngine.h"
+	"EntityManager.h"
+
+1482592220 p:\-- project dev --\-- game project --\templatemugenengine\deps\mugenengine.h
+	<allegro5/allegro.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
+	<allegro5/allegro_primitives.h>
+	<allegro5/allegro_image.h>
+	<allegro5/allegro_native_dialog.h>
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_physfs.h>
+	<physfs.h>
+	<allegro5/allegro_windows.h>
+	<allegro5/allegro_direct3d.h>
+	<cstdio>
+	<memory>
+	<vector>
+	<deque>
+	<iostream>
+	<functional>
+	<fstream>
+	<cstdlib>
+	<ctime>
+	"Window.h"
+	"Misc.h"
+	"Data.h"
+	"Controller.h"
+	"Player.h"
+	"Framerate.h"
+
+1441921812 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\allegro.h
+	"allegro5/base.h"
+	"allegro5/altime.h"
+	"allegro5/bitmap.h"
+	"allegro5/bitmap_draw.h"
+	"allegro5/bitmap_io.h"
+	"allegro5/bitmap_lock.h"
+	"allegro5/blender.h"
+	"allegro5/clipboard.h"
+	"allegro5/color.h"
+	"allegro5/config.h"
+	"allegro5/cpu.h"
+	"allegro5/debug.h"
+	"allegro5/display.h"
+	"allegro5/drawing.h"
+	"allegro5/error.h"
+	"allegro5/events.h"
+	"allegro5/file.h"
+	"allegro5/fixed.h"
+	"allegro5/fmaths.h"
+	"allegro5/fshook.h"
+	"allegro5/fullscreen_mode.h"
+	"allegro5/haptic.h"
+	"allegro5/joystick.h"
+	"allegro5/keyboard.h"
+	"allegro5/memory.h"
+	"allegro5/monitor.h"
+	"allegro5/mouse.h"
+	"allegro5/mouse_cursor.h"
+	"allegro5/path.h"
+	"allegro5/render_state.h"
+	"allegro5/shader.h"
+	"allegro5/system.h"
+	"allegro5/threads.h"
+	"allegro5/timer.h"
+	"allegro5/tls.h"
+	"allegro5/touch_input.h"
+	"allegro5/transformations.h"
+	"allegro5/utf8.h"
+	"allegro5/alcompat.h"
+
+1471116788 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\base.h
+	<errno.h>
+	<limits.h>
+	<limits.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<sys/types.h>
+	<fortify/fortify.h>
+	<dmalloc.h>
+	"allegro5/internal/alconfig.h"
+
+1469641829 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\internal\alconfig.h
+	"allegro5/platform/alplatf.h"
+	"allegro5/platform/alwatcom.h"
+	"allegro5/platform/almngw32.h"
+	"allegro5/platform/albcc32.h"
+	"allegro5/platform/almsvc.h"
+	"allegro5/platform/aliphonecfg.h"
+	"allegro5/platform/alosxcfg.h"
+	"allegro5/platform/alandroidcfg.h"
+	"allegro5/platform/alraspberrypicfg.h"
+	"allegro5/platform/alucfg.h"
+	"allegro5/platform/allegro_sdl_config.h"
+	"allegro5/platform/astdint.h"
+	"allegro5/platform/astdbool.h"
+
+1472928736 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\platform\alplatf.h
+
+1468702395 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\platform\alwatcom.h
+	<io.h>
+	<i86.h>
+	<conio.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1365819268 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\platform\almngw32.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+	"allegro5/platform/alplatf.h"
+
+1468702395 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\platform\albcc32.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+
+1468702395 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\platform\almsvc.h
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<malloc.h>
+	"allegro5/platform/alplatf.h"
+
+1354191040 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\platform\aliphonecfg.h
+	<fcntl.h>
+	<unistd.h>
+
+1365819268 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\platform\alosxcfg.h
+	"allegro5/platform/alplatf.h"
+
+1324189852 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\platform\alandroidcfg.h
+
+1354191040 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\platform\alraspberrypicfg.h
+	<fcntl.h>
+	<unistd.h>
+	<sys/types.h>
+
+1365818594 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\platform\alucfg.h
+	<fcntl.h>
+	<unistd.h>
+	"alunix.h"
+	"allegro5/platform/alplatf.h"
+
+1266925320 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\platform\alunix.h
+
+1405880629 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\platform\allegro_sdl_config.h
+	<fcntl.h>
+	<unistd.h>
+
+1281012045 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\platform\astdint.h
+	<inttypes.h>
+	<stdint.h>
+
+1281012045 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\platform\astdbool.h
+	<stdbool.h>
+
+1285076981 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\altime.h
+	"allegro5/base.h"
+
+1469937462 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\bitmap.h
+	"allegro5/color.h"
+
+1440810792 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\color.h
+	"allegro5/base.h"
+
+1354620434 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\bitmap_draw.h
+	"allegro5/bitmap.h"
+
+1443029817 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\bitmap_io.h
+	"allegro5/bitmap.h"
+	"allegro5/file.h"
+
+1419211222 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\file.h
+	"allegro5/base.h"
+	"allegro5/path.h"
+	"allegro5/utf8.h"
+
+1337492993 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\path.h
+	"allegro5/base.h"
+
+1337169289 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\utf8.h
+	"allegro5/base.h"
+
+1418623615 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\bitmap_lock.h
+	"allegro5/bitmap.h"
+
+1459716376 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\blender.h
+	"allegro5/base.h"
+	"allegro5/color.h"
+
+1441574420 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\clipboard.h
+	"allegro5/base.h"
+	"allegro5/display.h"
+	"allegro5/utf8.h"
+
+1469937462 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\display.h
+	"allegro5/bitmap.h"
+	"allegro5/color.h"
+	"allegro5/events.h"
+
+1455728992 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\events.h
+	"allegro5/altime.h"
+
+1351456157 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\config.h
+	"allegro5/file.h"
+
+1441921812 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\cpu.h
+	"allegro5/base.h"
+
+1351638189 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\debug.h
+	<assert.h>
+	"allegro5/base.h"
+
+1354620434 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\drawing.h
+	"allegro5/color.h"
+
+1281012045 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\error.h
+	"allegro5/base.h"
+
+1281012045 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\fixed.h
+	"allegro5/base.h"
+
+1281012045 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\fmaths.h
+	"allegro5/base.h"
+	"allegro5/fixed.h"
+	"allegro5/inline/fmaths.inl"
+
+1468702395 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\inline\fmaths.inl
+	"allegro5/error.h"
+
+1406018237 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\fshook.h
+	"allegro5/base.h"
+	"allegro5/file.h"
+	"allegro5/path.h"
+	<sys/types.h>
+
+1459716376 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\fullscreen_mode.h
+	"allegro5/base.h"
+
+1457207240 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\haptic.h
+	"allegro5/base.h"
+	"allegro5/display.h"
+	"allegro5/events.h"
+	"allegro5/joystick.h"
+	"allegro5/keyboard.h"
+	"allegro5/mouse.h"
+	"allegro5/touch_input.h"
+
+1354620434 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\joystick.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+
+1354620434 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\keyboard.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+	"allegro5/keycodes.h"
+
+1374892601 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\keycodes.h
+
+1423030331 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\mouse.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+
+1456086987 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\touch_input.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+
+1459716376 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\memory.h
+	"allegro5/base.h"
+
+1459716376 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\monitor.h
+	"allegro5/base.h"
+
+1354620434 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\mouse_cursor.h
+	"allegro5/base.h"
+
+1459716376 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\render_state.h
+	"allegro5/base.h"
+
+1462125881 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\shader.h
+	"allegro5/base.h"
+	"allegro5/transformations.h"
+
+1427944064 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\transformations.h
+	"allegro5/display.h"
+
+1333148078 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\system.h
+	"allegro5/config.h"
+	"allegro5/path.h"
+
+1289087210 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\threads.h
+	"allegro5/altime.h"
+
+1459716376 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\timer.h
+	"allegro5/base.h"
+	"allegro5/events.h"
+
+1440996195 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\tls.h
+	"allegro5/base.h"
+
+1459113855 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\alcompat.h
+
+1469937462 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\allegro_font.h
+	"allegro5/allegro.h"
+
+1329948386 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\allegro_ttf.h
+	"allegro5/allegro.h"
+	"allegro5/allegro_font.h"
+
+1393645666 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\allegro_primitives.h
+	<allegro5/allegro.h>
+
+1459716376 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\allegro_image.h
+	"allegro5/base.h"
+
+1456085617 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\allegro_native_dialog.h
+	"allegro5/allegro.h"
+
+1455078707 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\allegro_audio.h
+	"allegro5/allegro.h"
+
+1281012045 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\allegro_acodec.h
+	"allegro5/allegro.h"
+	"allegro5/allegro_audio.h"
+
+1281012045 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\allegro_physfs.h
+	"allegro5/allegro.h"
+
+1350963664 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\physfs.h
+
+1428125411 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\allegro_windows.h
+	<windows.h>
+
+1366550143 p:\-- project dev --\-- game project --\templatemugenengine\deps\allegro5211_mingw4814_rel3\include\allegro5\allegro_direct3d.h
+	<d3d9.h>
+	<d3dx9.h>
+	"allegro5/platform/alplatf.h"
+
+1482597082 p:\-- project dev --\-- game project --\templatemugenengine\deps\window.h
+	"MugenEngine.h"
+
+1483827544 p:\-- project dev --\-- game project --\templatemugenengine\deps\misc.h
+	"MugenEngine.h"
+	"Misc.inl"
+
+1483827637 p:\-- project dev --\-- game project --\templatemugenengine\deps\misc.inl
+	<iostream>
+
+1481038687 p:\-- project dev --\-- game project --\templatemugenengine\deps\data.h
+	"MugenEngine.h"
+	<json.hpp>
+	<lua.h>
+	<lauxlib.h>
+	<lualib.h>
+	<selene.h>
+
+1479320154 p:\-- project dev --\-- game project --\templatemugenengine\deps\json.hpp
+	<algorithm>
+	<array>
+	<cassert>
+	<cctype>
+	<ciso646>
+	<cmath>
+	<cstddef>
+	<cstdint>
+	<cstdlib>
+	<cstring>
+	<functional>
+	<initializer_list>
+	<iomanip>
+	<iostream>
+	<iterator>
+	<limits>
+	<locale>
+	<map>
+	<memory>
+	<numeric>
+	<sstream>
+	<stdexcept>
+	<string>
+	<type_traits>
+	<utility>
+	<vector>
+
+1464623608 p:\-- project dev --\-- game project --\templatemugenengine\deps\lua-5.3.3_win32_mingw4_lib\include\lua.h
+	<stdarg.h>
+	<stddef.h>
+	"luaconf.h"
+
+1465585511 p:\-- project dev --\-- game project --\templatemugenengine\deps\lua-5.3.3_win32_mingw4_lib\include\luaconf.h
+	<limits.h>
+	<stddef.h>
+	<stdint.h>
+	<assert.h>
+
+1448278182 p:\-- project dev --\-- game project --\templatemugenengine\deps\lua-5.3.3_win32_mingw4_lib\include\lauxlib.h
+	<stddef.h>
+	<stdio.h>
+	"lua.h"
+
+1391707952 p:\-- project dev --\-- game project --\templatemugenengine\deps\lua-5.3.3_win32_mingw4_lib\include\lualib.h
+	"lua.h"
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene.h
+	"selene/State.h"
+	"selene/Tuple.h"
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\state.h
+	"ExceptionHandler.h"
+	<iostream>
+	<memory>
+	<string>
+	"Registry.h"
+	"Selector.h"
+	<tuple>
+	"util.h"
+	<vector>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\exceptionhandler.h
+	<functional>
+	"primitives.h"
+	<string>
+	<lua.h>
+	<lauxlib.h>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\primitives.h
+	"ExceptionTypes.h"
+	<string>
+	"traits.h"
+	<type_traits>
+	"MetatableRegistry.h"
+	<lua.h>
+	<lauxlib.h>
+	<lualib.h>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\exceptiontypes.h
+	<exception>
+	<utility>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\traits.h
+	<tuple>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\metatableregistry.h
+	<iostream>
+	<memory>
+	<typeinfo>
+	<unordered_map>
+	<lua.h>
+	<lauxlib.h>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\registry.h
+	"Class.h"
+	<functional>
+	"Fun.h"
+	"MetatableRegistry.h"
+	"Obj.h"
+	"util.h"
+	<vector>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\class.h
+	"ClassFun.h"
+	"Ctor.h"
+	"Dtor.h"
+	"MetatableRegistry.h"
+	<map>
+	<memory>
+	"util.h"
+	<vector>
+	<stack>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\classfun.h
+	"BaseFun.h"
+	<string>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\basefun.h
+	"function.h"
+	<exception>
+	"ExceptionHandler.h"
+	<functional>
+	"primitives.h"
+	<tuple>
+	"util.h"
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\function.h
+	"ExceptionHandler.h"
+	"LuaRef.h"
+	"primitives.h"
+	"references.h"
+	"ResourceHandler.h"
+	<tuple>
+	"util.h"
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\luaref.h
+	<memory>
+	<vector>
+	"primitives.h"
+	"ResourceHandler.h"
+	<lua.h>
+	<lauxlib.h>
+	<lualib.h>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\resourcehandler.h
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\references.h
+	<cstddef>
+	"LuaRef.h"
+	<utility>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\util.h
+	"ExceptionHandler.h"
+	<iostream>
+	<utility>
+	<lua.h>
+	<lauxlib.h>
+	<lualib.h>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\ctor.h
+	"BaseFun.h"
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\dtor.h
+	"BaseFun.h"
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\fun.h
+	"BaseFun.h"
+	"primitives.h"
+	<string>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\obj.h
+	"ObjFun.h"
+	<functional>
+	<memory>
+	<string>
+	"util.h"
+	<utility>
+	<vector>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\objfun.h
+	"BaseFun.h"
+	<string>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\selector.h
+	"ExceptionHandler.h"
+	"function.h"
+	<functional>
+	"LuaRef.h"
+	"references.h"
+	"Registry.h"
+	"ResourceHandler.h"
+	<string>
+	<tuple>
+	"util.h"
+	<vector>
+
+1449688120 p:\-- project dev --\-- game project --\templatemugenengine\deps\selene\tuple.h
+	<tuple>
+	"Selector.h"
+
+1482597945 p:\-- project dev --\-- game project --\templatemugenengine\deps\controller.h
+	"Window.h"
+	<SFML/Window.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\window.hpp
+	<SFML/System.hpp>
+	<SFML/Window/Context.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/Event.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/Sensor.hpp>
+	<SFML/Window/Touch.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/Window.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/Window/WindowStyle.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Err.hpp>
+	<SFML/System/FileInputStream.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Lock.hpp>
+	<SFML/System/MemoryInputStream.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Sleep.hpp>
+	<SFML/System/String.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Utf.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/Vector3.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\config.hpp
+	"TargetConditionals.h"
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\clock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\export.hpp
+	<SFML/Config.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\time.hpp
+	<SFML/System/Export.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\err.hpp
+	<SFML/System/Export.hpp>
+	<ostream>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\fileinputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Export.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdio>
+	<string>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\inputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/Export.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\noncopyable.hpp
+	<SFML/System/Export.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\lock.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\memoryinputstream.hpp
+	<SFML/Config.hpp>
+	<SFML/System/InputStream.hpp>
+	<SFML/System/Export.hpp>
+	<cstdlib>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\mutex.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\sleep.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Time.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\string.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/Utf.hpp>
+	<iterator>
+	<locale>
+	<string>
+	<SFML/System/String.inl>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\utf.hpp
+	<SFML/Config.hpp>
+	<algorithm>
+	<locale>
+	<string>
+	<cstdlib>
+	<SFML/System/Utf.inl>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\utf.inl
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\string.inl
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\thread.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+	<SFML/System/Thread.inl>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\thread.inl
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\threadlocal.hpp
+	<SFML/System/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<cstdlib>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\threadlocalptr.hpp
+	<SFML/System/ThreadLocal.hpp>
+	<SFML/System/ThreadLocalPtr.inl>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\threadlocalptr.inl
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\vector2.hpp
+	<SFML/System/Vector2.inl>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\vector2.inl
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\vector3.hpp
+	<SFML/System/Vector3.inl>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\system\vector3.inl
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\window\context.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/System/NonCopyable.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\window\export.hpp
+	<SFML/Config.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\window\glresource.hpp
+	<SFML/Window/Export.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\window\contextsettings.hpp
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\window\event.hpp
+	<SFML/Config.hpp>
+	<SFML/Window/Joystick.hpp>
+	<SFML/Window/Keyboard.hpp>
+	<SFML/Window/Mouse.hpp>
+	<SFML/Window/Sensor.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\window\joystick.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/String.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\window\keyboard.hpp
+	<SFML/Window/Export.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\window\mouse.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\window\sensor.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector3.hpp>
+	<SFML/System/Time.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\window\touch.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/System/Vector2.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\window\videomode.hpp
+	<SFML/Window/Export.hpp>
+	<vector>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\window\window.hpp
+	<SFML/Window/Export.hpp>
+	<SFML/Window/ContextSettings.hpp>
+	<SFML/Window/VideoMode.hpp>
+	<SFML/Window/WindowHandle.hpp>
+	<SFML/Window/WindowStyle.hpp>
+	<SFML/Window/GlResource.hpp>
+	<SFML/System/Clock.hpp>
+	<SFML/System/Vector2.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/String.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\window\windowhandle.hpp
+	<SFML/Config.hpp>
+
+1470587838 p:\-- project dev --\-- game project --\templatemugenengine\deps\sfml\include\sfml\window\windowstyle.hpp
+
+1482597586 p:\-- project dev --\-- game project --\templatemugenengine\deps\player.h
+	"MugenEngine.h"
+
+1481046983 p:\-- project dev --\-- game project --\templatemugenengine\deps\framerate.h
+	"MugenEngine.h"
+
+1483831323 source:p:\-- project dev --\-- game project --\templatemugenengine\src\game.cpp
+	"Game.h"
+
+1483829785 p:\-- project dev --\-- game project --\templatemugenengine\include\entity.h
+	"MugenEngine.h"
+	"IPlayable.h"
+
+1483828420 source:p:\-- project dev --\-- game project --\templatemugenengine\src\entity.cpp
+	"Entity.h"
+
+1483524166 p:\-- project dev --\-- game project --\templatemugenengine\include\sprite.h
+	"MugenEngine.h"
+	"IPlayable.h"
+
+1483462816 source:p:\-- project dev --\-- game project --\templatemugenengine\src\sprite.cpp
+	"Sprite.h"
+
+1483828335 p:\-- project dev --\-- game project --\templatemugenengine\include\scene.h
+	"MugenEngine.h"
+	"Entity.h"
+
+1483828345 source:p:\-- project dev --\-- game project --\templatemugenengine\src\scene.cpp
+	"Scene.h"
+
+1483524231 p:\-- project dev --\-- game project --\templatemugenengine\include\layer.h
+	"MugenEngine.h"
+	"IPlayable.h"
+
+1483524231 source:p:\-- project dev --\-- game project --\templatemugenengine\src\layer.cpp
+	"Layer.h"
+
+1483488732 p:\-- project dev --\-- game project --\templatemugenengine\include\manager.h
+
+1483488718 source:p:\-- project dev --\-- game project --\templatemugenengine\src\manager.cpp
+	"Manager.h"
+
+1483830775 p:\-- project dev --\-- game project --\templatemugenengine\include\iplayable.h
+	"MugenEngine.h"
+
+1483830808 source:p:\-- project dev --\-- game project --\templatemugenengine\src\iplayable.cpp
+	"IPlayable.h"
+
+1483831553 p:\-- project dev --\-- game project --\templatemugenengine\include\icontainer.h
+	"Mugenengine.h"
+
+1483616707 source:p:\-- project dev --\-- game project --\templatemugenengine\src\icontainer.cpp
+	"IContainer.h"
+
+1483619683 source:p:\-- project dev --\-- game project --\templatemugenengine\src\base.cpp
+	"Base.h"
+
+1483637118 p:\-- project dev --\-- game project --\templatemugenengine\include\base.h
+	"MugenEngine.h"
+
+1483625021 p:\-- project dev --\-- game project --\templatemugenengine\include\entitymanager.h
+	"IContainer.h"
+	"Entity.h"
+
+1483625064 source:p:\-- project dev --\-- game project --\templatemugenengine\src\entitymanager.cpp
+	"EntityManager.h"
+
+1483828373 p:\-- project dev --\-- game project --\templatemugenengine\include\ball.h
+
+1483828373 source:p:\-- project dev --\-- game project --\templatemugenengine\src\ball.cpp
+	"Ball.h"
+

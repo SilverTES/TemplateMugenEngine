@@ -1,0 +1,5 @@
+stdio    D C:\LIBS4814Build\A5211\allegro\src\file_stdio.c:105  file_stdio_fopen                 [   0.00000] opening C:\LIBS4814Distro\Allegro5211\bin\tests\allegro5.cfg r
+system   D C:\LIBS4814Build\A5211\allegro\src\win\wsystem.c:771  _al_win_safe_load_library        [   0.00000] PathFindOnPath found: C:\WINDOWS\system32\shcore.dll
+system   D C:\LIBS4814Build\A5211\allegro\src\win\wsystem.c:682  load_library_at_path             [   0.00000] Calling LoadLibrary C:\WINDOWS\system32\shcore.dll
+system   I C:\LIBS4814Build\A5211\allegro\src\win\wsystem.c:685  load_library_at_path             [   0.00000] Loaded C:\WINDOWS\system32\shcore.dll
+system   I C:\LIBS4814Build\A5211\allegro\src\system.c:257  al_install_system                [   0.00000] Allegro version: 5.2.1

@@ -1,0 +1,11 @@
+{
+    "name" : "--- Mugenengine ---",
+    "fullscreen" : false,
+    "vsync"      : true,
+    "width"      : 640,
+    "height"     : 360,
+    "scaleWin"   : 2,
+    "scaleFull"  : 0,
+    "gridW"      : 16,
+    "gridH"      : 16
+}

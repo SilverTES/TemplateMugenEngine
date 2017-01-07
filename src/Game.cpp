@@ -77,7 +77,7 @@ int Game::init()
 
     _manEntity->at("Ball")->setUpdate([&](Entity * e)
     {
-        if (_window != nullptr)
+        if (e->window() != nullptr)
         {
             e->get<Position>()->_x += e->get<Velocity>()->_x;
             e->get<Position>()->_y += e->get<Velocity>()->_y;
@@ -86,13 +86,13 @@ int Game::init()
             if (e->get<Position>()->_x < 0)
                 e->get<Velocity>()->_x = 1;
 
-            if (e->get<Position>()->_x > _window->screenW())
+            if (e->get<Position>()->_x > e->window()->screenW())
                 e->get<Velocity>()->_x = -1;
 
             if (e->get<Position>()->_y < 0)
                 e->get<Velocity>()->_y = 1;
 
-            if (e->get<Position>()->_y > _window->screenH())
+            if (e->get<Position>()->_y > e->window()->screenH())
                 e->get<Velocity>()->_y = -1;
         }
     });
@@ -127,6 +127,21 @@ int Game::init()
 
     _manEntity->at("Ball")->play(true);
 
+
+    _manEntity->add(Entity::cloneOf(_manEntity->at("Ball"),"Clone Ball"));
+
+    _manEntity->at("Clone Ball")->get<Position>()->_x = 240;
+    _manEntity->at("Clone Ball")->get<Position>()->_y = 120;
+
+    for (int i = 0; i < 10; i++)
+    {
+        _manEntity->add(Entity::cloneOf(_manEntity->at("Ball"),"Clone Ball"+std::to_string(i) ));
+
+        _manEntity->at("Clone Ball"+std::to_string(i))->get<Position>()->_x = random(0, _screenW);
+        _manEntity->at("Clone Ball"+std::to_string(i))->get<Position>()->_y = random(0, _screenH);
+
+    }
+
 //    _manEntity->add(Base::create<Scene>(0,"Intro", new Scene(true, _window)));
 //
 ////    _manEntity->at("Intro")->play(true);
@@ -148,6 +163,7 @@ int Game::init()
     for (int i=0; i<_manEntity->vecSize(); i++)
     {
         _manEntity->index(i)->setFont(_mainFont);
+        _manEntity->index(i)->setWindow(_window);
     }
 
     return log("- init Game OK !\n");

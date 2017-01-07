@@ -32,3 +32,7 @@ void IPlayable::setWindow(std::shared_ptr<Window> window)
 {
     _window = window;
 }
+std::shared_ptr<Window> IPlayable::window() const
+{
+    return _window;
+}

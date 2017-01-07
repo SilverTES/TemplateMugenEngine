@@ -14,7 +14,9 @@ class IPlayable
 
         void setFont(ALLEGRO_FONT *font);
         ALLEGRO_FONT *font() const;
+
         void setWindow(std::shared_ptr<Window> window);
+        std::shared_ptr<Window> window() const;
 
     protected:
         bool _isPlay      = false;

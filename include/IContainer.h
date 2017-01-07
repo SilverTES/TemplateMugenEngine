@@ -62,7 +62,7 @@ class IContainer
             }
             return log("OBJECT not found !",nullptr);
         }
-        OBJECT *at(const char *name)
+        OBJECT *at(std::string name)
         {
             for (auto & it: _vecChild)
             {

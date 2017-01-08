@@ -168,7 +168,8 @@ struct Entity : public IPlayable
 
     void del(int type)
     {
-        delete _mapMember[type];
+        if (_mapMember[type] != nullptr)
+            delete _mapMember[type];
         _mapMember.erase(type);
     }
 

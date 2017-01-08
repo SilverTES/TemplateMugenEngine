@@ -48,12 +48,12 @@ int Game::init()
 
 
     // Show file in zip archives !
-//    char **rc = PHYSFS_enumerateFiles("");
-//    char **i;
-//    for (i = rc; *i != NULL; i++)
-//        printf("---> [%s].\n", *i);
-//
-//    PHYSFS_freeList(rc);
+    char **rc = PHYSFS_enumerateFiles("");
+    char **i;
+    for (i = rc; *i != NULL; i++)
+        printf("---> [%s].\n", *i);
+
+    PHYSFS_freeList(rc);
 
     if ( NULL == (_gamepadSNES = al_load_bitmap("gamepad_snes.png")) )
         return log("- load gamepadSNES bitmap error !\n",1);
@@ -77,7 +77,9 @@ int Game::init()
 
     _manEntity->at("Ball")->setUpdate([&](Entity * e)
     {
-        if (e->window() != nullptr)
+        if (e->window() != nullptr &&
+            e->get<Position>() != nullptr &&
+            e->get<Velocity>() != nullptr)
         {
             e->get<Position>()->_x += e->get<Velocity>()->_x;
             e->get<Position>()->_y += e->get<Velocity>()->_y;
@@ -99,7 +101,8 @@ int Game::init()
 
     _manEntity->at("Ball")->setRender([&](Entity * e)
     {
-        if (e->window() != nullptr)
+        if (e->window() != nullptr &&
+            e->get<Position>() != nullptr)
         {
             int x = e->get<Position>()->_x;
             int y = e->get<Position>()->_y;
@@ -126,43 +129,29 @@ int Game::init()
 
     });
 
-    _manEntity->at("Ball")->render();
+    int b = _manEntity->indexByName("Ball");
 
-    _manEntity->at("Ball")->play(true);
+    _manEntity->index(b)->render();
+    _manEntity->index(b)->play(true);
 
+    _manEntity->add(Entity::cloneOf(_manEntity->at("Ball"),"First Clone Ball"));
 
-    _manEntity->add(Entity::cloneOf(_manEntity->at("Ball"),"Clone Ball"));
+    _manEntity->at("First Clone Ball")->get<Position>()->_x = 240;
+    _manEntity->at("First Clone Ball")->get<Position>()->_y = 120;
 
-    _manEntity->at("Clone Ball")->get<Position>()->_x = 240;
-    _manEntity->at("Clone Ball")->get<Position>()->_y = 120;
-
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 5; i++)
     {
-        _manEntity->add(Entity::cloneOf(_manEntity->at("Ball"),"Clone Ball"+std::to_string(i) ));
+        Entity *e = Entity::cloneOf(_manEntity->at("Ball"),"Clone Ball"+std::to_string(i));
 
-        _manEntity->at("Clone Ball"+std::to_string(i))->get<Position>()->_x = random(0, _screenW);
-        _manEntity->at("Clone Ball"+std::to_string(i))->get<Position>()->_y = random(0, _screenH);
+        _manEntity->add(e);
+
+        e->get<Position>()->_x = random(0, _screenW);
+        e->get<Position>()->_y = random(0, _screenH);
 
     }
 
-//    _manEntity->add(Base::create<Scene>(0,"Intro", new Scene(true, _window)));
-//
-////    _manEntity->at("Intro")->play(true);
-////    _manEntity->at("Intro")->setFont(_mainFont);
-//
-//    //_manEntity->index(0)->play(false);
-//
-//    _manEntity->add(Base::create<Ball>(10,"Ball_0", new Ball(true, _window, Vec3{20,80,0},Vec3{1,1,0} )));
-//
-//    _manEntity->add(Base::create<Ball>(11,"Ball_1", new Ball(true, _window, Vec3{110,40,0},Vec3{1,2,0} )));
-//    _manEntity->add(Base::create<Ball>(12,"Ball_2", new Ball(true, _window, Vec3{10,140,0},Vec3{-2,2,0} )));
-//    _manEntity->add(Base::create<Ball>(13,"Ball_3", new Ball(true, _window, Vec3{80,110,0},Vec3{1,-2,0} )));
-//
-//    _manEntity->add(Base::create<Ball>(13,"Ball_3", new Ball(true, _window, Vec3{180,70,0},Vec3{1,-2,0} )));
-//    _manEntity->add(Base::create<Ball>(13,"Ball_3", new Ball(true, _window, Vec3{280,60,0},Vec3{2,-2,0} )));
-//    _manEntity->add(Base::create<Ball>(13,"Ball_3", new Ball(true, _window, Vec3{380,50,0},Vec3{-1,-2,0} )));
-//    _manEntity->add(Base::create<Ball>(13,"Ball_3", new Ball(true, _window, Vec3{480,240,0},Vec3{-2,-2,0} )));
-//
+    _manEntity->at("First Clone Ball")->del(VELOCITY);
+
     for (int i=0; i<_manEntity->vecSize(); i++)
     {
         _manEntity->index(i)->setFont(_mainFont);
@@ -268,9 +257,12 @@ void Game::update()
 
     if (_input->getKey(ALLEGRO_KEY_F1))
     {
+        _manEntity->at("First Clone Ball")->del(VELOCITY);
+        _manEntity->at("First Clone Ball")->add(new Velocity(1,-1,0));
     }
     if (_input->getKey(ALLEGRO_KEY_F2))
     {
+        _manEntity->at("First Clone Ball")->del(VELOCITY);
     }
     if (_input->getKey(ALLEGRO_KEY_F3))
     {

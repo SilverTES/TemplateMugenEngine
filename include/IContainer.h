@@ -53,6 +53,16 @@ class IContainer
             return _vecChild[index];
         }
 
+        int indexByName(std::string name)
+        {
+            for (unsigned i = 0; i<_vecChild.size(); i++)
+            {
+                if (_vecChild[i]->name() == name)
+                    return i;
+            }
+            return 0;
+        }
+
         OBJECT *at(int id)
         {
             for (auto & it: _vecChild)

@@ -83,6 +83,7 @@ struct Velocity : public ComponentHelper<Velocity>
 
 struct Entity : public IPlayable
 {
+    int _id = 0;
     std::string _name="";
 
     Entity *_parent = nullptr;
@@ -133,8 +134,9 @@ struct Entity : public IPlayable
         return clone;
     }
 
-    Entity(Entity *parent = nullptr, std::string name="")
+    Entity(Entity *parent = nullptr, std::string name="", int id = 0)
     {
+        _id = id;
         _name = name;
         _parent = parent;
 

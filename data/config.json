@@ -1,7 +1,7 @@
 {
     "name" : "--- Mugenengine ---",
     "fullscreen" : false,
-    "vsync"      : false,
+    "vsync"      : true,
     "smooth"     : false,
     "width"      : 640,
     "height"     : 360,

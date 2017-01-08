@@ -14,7 +14,7 @@ EntityManager::~EntityManager()
 
 void EntityManager::update()
 {
-    for (auto & it: _vecChild)
+    for (auto & it: _vecObject)
     {
         if (it != nullptr)
             if (it->isPlay())
@@ -25,7 +25,7 @@ void EntityManager::update()
 
 void EntityManager::render()
 {
-    for (auto & it: _vecChild)
+    for (auto & it: _vecObject)
     {
         if (it != nullptr)
             if (it->isPlay())
@@ -36,7 +36,7 @@ void EntityManager::render()
 
 void EntityManager::stopAll()
 {
-    for (auto & it: _vecChild)
+    for (auto & it: _vecObject)
     {
         if (it != nullptr)
             it->play(false);

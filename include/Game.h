@@ -62,6 +62,8 @@ class Game : public MugenEngine
 
         bool _keyFull;
         bool _keySwitch;
+        bool _keyDelete;
+        bool _keyInsert;
 
         // Mouse
         float _xMouse;

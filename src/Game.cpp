@@ -112,24 +112,39 @@ int Game::init()
             int x = e->get<Position>()->_x;
             int y = e->get<Position>()->_y;
 
-            al_draw_filled_circle(x+.5, y+.5, 8, al_map_rgba(255,0,255,50));
+            //al_draw_filled_circle(x+.5, y+.5, 8, al_map_rgba(255,0,255,50));
 
-            al_draw_circle(x+.5, y+.5, 8, al_map_rgb(25,155,255),0);
+            //al_draw_circle(x+.5, y+.5, 8, al_map_rgb(25,155,255),0);
 
-            al_draw_line(0,y+.5,
-                         e->window()->screenW(),y+.5,
-                         al_map_rgba(55,25,20,25),0);
+            al_draw_bitmap_region(_jet,
+                      686, 53,
+                      46, 24,
+                      x, y, 0);
 
-            al_draw_line(x+.5,0,
-                         x+.5,e->window()->screenH(),
-                         al_map_rgba(55,25,20,25),0);
+//            al_draw_line(0,y+.5,
+//                         e->window()->screenW(),y+.5,
+//                         al_map_rgba(55,25,20,25),0);
+//
+//            al_draw_line(x+.5,0,
+//                         x+.5,e->window()->screenH(),
+//                         al_map_rgba(55,25,20,25),0);
 
             if (e->font() != nullptr)
+            {
                 al_draw_textf(e->font(),
                               al_map_rgb(205,200,20),
                               x, y-20,
                               -1,
-                              "%s", e->_name.c_str());
+                              "%s", e->_name.c_str());
+                al_draw_textf(e->font(),
+                              al_map_rgb(205,200,20),
+                              x, y+8,
+                              -1,
+                              "%i", e->_id);
+
+            }
+
+
         }
 
     });
@@ -163,6 +178,14 @@ int Game::init()
         _manEntity->index(i)->setFont(_mainFont);
         _manEntity->index(i)->setWindow(_window);
     }
+
+    std::function<void(std::string)> showId = [&](std::string name){
+        if (_manEntity->idByName(name) != -1)
+                std::cout << "--- index = _id of "<< name <<" = "<< _manEntity->idByName(name) << "\n";
+    };
+
+
+    showId("Clone Ball2");
 
     return log("- init Game OK !\n");
 }
@@ -270,8 +293,26 @@ void Game::update()
     {
         _manEntity->at("First Clone Ball")->del(VELOCITY);
     }
-    if (_input->getKey(ALLEGRO_KEY_F3))
+
+
+    if (!_input->getKey(ALLEGRO_KEY_DELETE)) _keyDelete = false;
+    if (_input->getKey(ALLEGRO_KEY_DELETE) && !_keyDelete)
     {
+        _keyDelete = true;
+        _manEntity->del("Clone of Ball");
+    }
+
+    if (!_input->getKey(ALLEGRO_KEY_INSERT)) _keyInsert = false;
+    if (_input->getKey(ALLEGRO_KEY_INSERT) && !_keyInsert)
+    {
+        _keyInsert = true;
+
+        Entity *e = Entity::cloneOf(_manEntity->at("Ball"),"Clone of Ball");
+
+        _manEntity->add(e);
+
+        e->get<Position>()->_x = random(0, _screenW);
+        e->get<Position>()->_y = random(0, _screenH);
     }
 
     _framerate->pollFramerate();

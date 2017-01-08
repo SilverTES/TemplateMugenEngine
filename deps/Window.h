@@ -16,7 +16,7 @@ class Window
     // Setup
         Window();
         virtual ~Window();
-        int init(const char* name, int screenW, int screenH, int scaleWin, int scaleFull, bool fullScreen, bool vsync);
+        int init(const char* name, int screenW, int screenH, int scaleWin, int scaleFull, bool fullScreen, bool vsync, bool smooth);
         int done();
 
     // Render
@@ -97,6 +97,7 @@ class Window
         bool _isFullScreen;
         bool _isMaxScale;
         bool _isVsync;
+        bool _isSmooth;
 
     private:
         ALLEGRO_DISPLAY *_windowDisplay = NULL;

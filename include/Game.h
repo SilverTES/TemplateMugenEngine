@@ -52,6 +52,7 @@ class Game : public MugenEngine
 
 
         bool _isVsync = false;
+        bool _isSmooth = false;
         bool _isFullScreen = false;
         bool _turbo;
         int _screenW;

@@ -2,7 +2,7 @@
 1483829437 source:p:\-- project dev --\-- game project --\templatemugenengine\main.cpp
 	"Game.h"
 
-1483831448 p:\-- project dev --\-- game project --\templatemugenengine\include\game.h
+1483880724 p:\-- project dev --\-- game project --\templatemugenengine\include\game.h
 	"MugenEngine.h"
 	"EntityManager.h"
 
@@ -350,7 +350,7 @@
 	<d3dx9.h>
 	"allegro5/platform/alplatf.h"
 
-1482597082 p:\-- project dev --\-- game project --\templatemugenengine\deps\window.h
+1483880448 p:\-- project dev --\-- game project --\templatemugenengine\deps\window.h
 	"MugenEngine.h"
 
 1483827544 p:\-- project dev --\-- game project --\templatemugenengine\deps\misc.h
@@ -775,7 +775,7 @@
 1481046983 p:\-- project dev --\-- game project --\templatemugenengine\deps\framerate.h
 	"MugenEngine.h"
 
-1483863253 source:p:\-- project dev --\-- game project --\templatemugenengine\src\game.cpp
+1483880703 source:p:\-- project dev --\-- game project --\templatemugenengine\src\game.cpp
 	"Game.h"
 
 1483863577 p:\-- project dev --\-- game project --\templatemugenengine\include\entity.h
@@ -817,7 +817,7 @@
 1483832072 source:p:\-- project dev --\-- game project --\templatemugenengine\src\iplayable.cpp
 	"IPlayable.h"
 
-1483863319 p:\-- project dev --\-- game project --\templatemugenengine\include\icontainer.h
+1483877792 p:\-- project dev --\-- game project --\templatemugenengine\include\icontainer.h
 	"Mugenengine.h"
 
 1483616707 source:p:\-- project dev --\-- game project --\templatemugenengine\src\icontainer.cpp

@@ -15,21 +15,26 @@ int Game::init()
     _name               = appName.c_str();
     _isFullScreen       = _config.at("fullscreen");
     _isVsync            = _config.at("vsync");
+    _isSmooth           = _config.at("smooth");
     _screenW            = _config.at("width");
-    _screenH            =  _config.at("height");
+    _screenH            = _config.at("height");
     _scaleWin           = _config.at("scaleWin"); // scale in windowMode !
     _scaleFull          = _config.at("scaleFull"); // 0 = Max zoom !
     _keyFull            = false;
 
     _eventQueue         = al_create_event_queue();
 
-    _window->init(_name, _screenW, _screenH, _scaleWin, _scaleFull, _isFullScreen, _isVsync);
+    //al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
+    //al_set_new_bitmap_flags(ALLEGRO_MAG_LINEAR);
+
+    _window->init(_name, _screenW, _screenH, _scaleWin, _scaleFull, _isFullScreen, _isVsync, _isSmooth);
 
 
 
 
     al_hide_mouse_cursor(_window->display());
     //al_show_mouse_cursor(_window->display());
+
 
     _mainFont = al_load_font("data/Kyrou.ttf", 8, 0);
     _mouseCursor = al_load_bitmap("data/mouse_cursor.png");
@@ -143,10 +148,11 @@ int Game::init()
     {
         Entity *e = Entity::cloneOf(_manEntity->at("Ball"),"Clone Ball"+std::to_string(i));
 
-        _manEntity->add(e);
-
         e->get<Position>()->_x = random(0, _screenW);
         e->get<Position>()->_y = random(0, _screenH);
+
+        _manEntity->add(e);
+
 
     }
 

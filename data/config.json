@@ -2,6 +2,7 @@
     "name" : "--- Mugenengine ---",
     "fullscreen" : false,
     "vsync"      : false,
+    "smooth"     : false,
     "width"      : 640,
     "height"     : 360,
     "scaleWin"   : 2,

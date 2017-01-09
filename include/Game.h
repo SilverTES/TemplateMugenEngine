@@ -81,6 +81,10 @@ class Game : public MugenEngine
 
         int _fadeScreen = 0;
 
+        Entity *_ball;
+
+        Entity *_laser;
+
 };
 
 #endif // GAME_H

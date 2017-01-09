@@ -47,7 +47,7 @@ class IContainer
                 {
                     unsigned id = _vecObject.size();
                     object->_id = id;
-                    _vecObject.emplace_back(object);
+                    _vecObject.push_back(object);
                 }
                 //_vecObject.push_back(object);
 
@@ -58,11 +58,11 @@ class IContainer
             //std::cout << "BEFORE object deleted = " << _vecObject[id] << "\n";
             if (id >= 0 && id < _vecObject.size() && _vecObject[id] != nullptr)
             {
-                log ("- " + _vecObject[id]->_name + " deleted !\n");
+                //log ("- " + _vecObject[id]->_name + " deleted !\n");
                 delete _vecObject[id];
                 _vecObject[id] = nullptr;
 
-                _vecFreeObject.emplace_back(id);
+                _vecFreeObject.push_back(id);
             }
 
             //std::cout << "AFTER object deleted = " << _vecObject[id] << "\n";
@@ -78,6 +78,14 @@ class IContainer
             }
         }
 
+        void delAll()
+        {
+            for (auto & it: _vecObject)
+            {
+                if (it != nullptr)
+                    del(it->_id);
+            }
+        }
 
         OBJECT *first() const
         {
@@ -113,6 +121,15 @@ class IContainer
             return _vecObject.size();
         }
 
+        bool isFree(int id) const
+        {
+            if (_vecObject[id] != nullptr)
+                return false;
+            else
+                return true;
+
+        }
+
         OBJECT *index(int index) const
         {
             return _vecObject[index];
@@ -122,8 +139,9 @@ class IContainer
         {
             for (unsigned i = 0; i<_vecObject.size(); i++)
             {
-                if (_vecObject[i]->name() == name)
-                    return i;
+                if (_vecObject[i] != nullptr)
+                    if (_vecObject[i]->name() == name)
+                        return i;
             }
             return 0;
         }
@@ -132,19 +150,23 @@ class IContainer
         {
             for (auto & it: _vecObject)
             {
-                if (it->id() == id)
-                    return it;
+                if (it != nullptr)
+                    if (it->_id == id)
+                        return it;
             }
-            return log("OBJECT not found !",nullptr);
+            //log("OBJECT not found !");
+            return nullptr;
         }
         OBJECT *at(std::string name) const
         {
             for (auto & it: _vecObject)
             {
-                if (it->name() == name)
-                    return it;
+                if (it != nullptr)
+                    if (it->name() == name)
+                        return it;
             }
-            return log("OBJECT not found !",nullptr);
+            log("OBJECT not found !");
+            return nullptr;
         }
 
         int idByName(std::string name) const

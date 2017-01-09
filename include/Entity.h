@@ -26,7 +26,8 @@
 enum
 {
     POSITION = 10,
-    VELOCITY
+    VELOCITY,
+    TEMPO
 };
 
 
@@ -81,6 +82,35 @@ struct Velocity : public ComponentHelper<Velocity>
     }
 };
 
+struct Tempo : public ComponentHelper<Tempo>
+{
+    int _tempo;
+    int _duration;
+    bool _tic;
+
+    Tempo(int duration = 100)
+    {
+        _type = TEMPO;
+        _tempo = 0;
+        _duration = duration;
+        _tic = false;
+    }
+
+    void update()
+    {
+        _tempo++;
+
+        if (_tempo < _duration)
+            _tic = false;
+
+        if (_tempo >_duration)
+        {
+            _tic = true;
+            _tempo = 0;
+        }
+    }
+};
+
 struct Entity : public IPlayable
 {
     int _id = 0;
@@ -122,7 +152,7 @@ struct Entity : public IPlayable
 
 
         //clone = original;
-        log ("--- Begin deep copy ---\n");
+        //log ("--- Begin deep copy ---\n");
         std::map<int,Component*>::const_iterator it = original->_mapMember.begin();
 
         while (it != original->_mapMember.end())
@@ -140,7 +170,7 @@ struct Entity : public IPlayable
         _name = name;
         _parent = parent;
 
-        log("- Entity created !\n");
+        //log("- Entity created !\n");
 
     }
     virtual ~Entity()
@@ -151,7 +181,7 @@ struct Entity : public IPlayable
         {
             if (it->second != nullptr)
             {
-                log ("- Delete Component:"+ std::to_string(it->second->_type) + " of Entity: " + _name + "\n");
+                //log ("- Delete Component:"+ std::to_string(it->second->_type) + " of Entity: " + _name + "\n");
                 delete it->second;
                 it->second = nullptr;
             }
@@ -160,7 +190,7 @@ struct Entity : public IPlayable
         }
         _mapMember.clear();
 
-        log("- Delete Entity: " + _name + "\n");
+        //log("- Delete Entity: " + _name + "\n");
     }
 
     void add(Component* component)

@@ -53,12 +53,12 @@ int Game::init()
 
 
     // Show file in zip archives !
-    char **rc = PHYSFS_enumerateFiles("");
-    char **i;
-    for (i = rc; *i != NULL; i++)
-        printf("---> [%s].\n", *i);
-
-    PHYSFS_freeList(rc);
+//    char **rc = PHYSFS_enumerateFiles("");
+//    char **i;
+//    for (i = rc; *i != NULL; i++)
+//        printf("---> [%s].\n", *i);
+//
+//    PHYSFS_freeList(rc);
 
     if ( NULL == (_gamepadSNES = al_load_bitmap("gamepad_snes.png")) )
         return log("- load gamepadSNES bitmap error !\n",1);
@@ -75,16 +75,77 @@ int Game::init()
 
     _manEntity = std::make_shared<EntityManager>();
 
-    _manEntity->add(new Entity(nullptr,"Ball"));
+    //_manEntity->add(new Entity(nullptr,"Ball"));
+    _ball = new Entity(nullptr,"Ball");
+    _laser = new Entity(nullptr,"Laser");
 
-    _manEntity->at("Ball")->add(new Position(100,100,0));
-    _manEntity->at("Ball")->add(new Velocity(1,1,0));
+//    _manEntity->at("Ball")->add(new Position(100,100,0));
+//    _manEntity->at("Ball")->add(new Velocity(1,1,0));
 
-    _manEntity->at("Ball")->setUpdate([&](Entity * e)
+    _ball->add(new Position(100,100,0));
+    _ball->add(new Velocity(1,1,0));
+    _ball->add(new Tempo(20));
+
+    _laser->add(new Position(100,200,0));
+    _laser->add(new Velocity(1,0,1));
+    //_laser->add(new Tempo(100));
+
+
+
+    _laser->setUpdate([&](Entity * e)
     {
         if (e->window() != nullptr &&
             e->get<Position>() != nullptr &&
             e->get<Velocity>() != nullptr)
+        {
+            e->get<Position>()->_x += e->get<Velocity>()->_x * e->get<Velocity>()->_z;
+
+            e->get<Position>()->_z++;
+            if ( e->get<Position>()->_z > 8)
+            {
+                e->get<Position>()->_z = 0;
+                //e->get<Velocity>()->_z += e->get<Velocity>()->_z;
+                if (e->get<Velocity>()->_z < 16) e->get<Velocity>()->_z += 2;
+            }
+
+            //if (e->get<Velocity>()->_z > 16) e->get<Velocity>()->_z = 16;
+
+            if (e->get<Position>()->_x > e->window()->screenW())
+                _manEntity->del(e->_id);
+
+        }
+
+    });
+    _laser->setRender([&](Entity * e)
+    {
+        if (e->window() != nullptr &&
+            e->get<Position>() != nullptr &&
+            e->get<Velocity>() != nullptr)
+        {
+            int x = e->get<Position>()->_x;
+            int y = e->get<Position>()->_y;
+
+            al_draw_filled_rectangle(x+.5, y-.5,
+                                     x+e->get<Velocity>()->_z*2+.5, y+.5,
+                                     al_map_rgba(250,180,250,255));
+
+            al_draw_rectangle(x+.5, y-.5,
+                              x+e->get<Velocity>()->_z*2+.5, y+.5,
+                              al_map_rgba(250,100,20,250),
+                              0);
+        }
+
+    });
+
+
+
+    //_manEntity->at("Ball")->setUpdate([&](Entity * e)
+    _ball->setUpdate([&](Entity * e)
+    {
+        if (e->window() != nullptr &&
+            e->get<Position>() != nullptr &&
+            e->get<Velocity>() != nullptr &&
+            e->get<Tempo>() != nullptr)
         {
             e->get<Position>()->_x += e->get<Velocity>()->_x;
             e->get<Position>()->_y += e->get<Velocity>()->_y;
@@ -101,10 +162,37 @@ int Game::init()
 
             if (e->get<Position>()->_y > e->window()->screenH())
                 e->get<Velocity>()->_y = -1;
+
+
+//            if (e->get<Tempo>() != nullptr)
+//            {
+            e->get<Tempo>()->update();
+
+//            e->get<Tempo>()->_tempo += 1;
+//            if (e->get<Tempo>()->_tempo > e->get<Tempo>()->_duration)
+//            {
+//                e->get<Tempo>()->_tic = true;
+//                e->get<Tempo>()->_tempo = 0;
+//            }
+
+            if (e->get<Tempo>()->_tic)
+            {
+                e->get<Tempo>()->_tic = false;
+
+                Entity *laser = Entity::cloneOf(_laser,"Clone Laser");
+
+                laser->get<Position>()->_x = e->get<Position>()->_x;
+                laser->get<Position>()->_y = e->get<Position>()->_y+8;
+
+                _manEntity->add(laser);
+            }
+//            }
+
         }
     });
 
-    _manEntity->at("Ball")->setRender([&](Entity * e)
+    //_manEntity->at("Ball")->setRender([&](Entity * e)
+    _ball->setRender([&](Entity * e)
     {
         if (e->window() != nullptr &&
             e->get<Position>() != nullptr)
@@ -117,8 +205,8 @@ int Game::init()
             //al_draw_circle(x+.5, y+.5, 8, al_map_rgb(25,155,255),0);
 
             al_draw_bitmap_region(_jet,
-                      686, 53,
-                      46, 24,
+                      690, 53,
+                      42, 23,
                       x, y, 0);
 
 //            al_draw_line(0,y+.5,
@@ -129,30 +217,40 @@ int Game::init()
 //                         x+.5,e->window()->screenH(),
 //                         al_map_rgba(55,25,20,25),0);
 
-            if (e->font() != nullptr)
-            {
-                al_draw_textf(e->font(),
-                              al_map_rgb(205,200,20),
-                              x, y-20,
-                              -1,
-                              "%s", e->_name.c_str());
-                al_draw_textf(e->font(),
-                              al_map_rgb(205,200,20),
-                              x, y+8,
-                              -1,
-                              "%i", e->_id);
-
-            }
+//            if (e->font() != nullptr)
+//            {
+//                al_draw_textf(e->font(), al_map_rgb(205,200,20),
+//                              x, y-12,-1,
+//                              "%s", e->_name.c_str());//
+//                al_draw_textf(e->font(), al_map_rgb(205,200,20),
+//                              x, y+8,-1,
+//                              "%i", e->_id);
+//
+//            }
 
 
         }
 
     });
 
-    int b = _manEntity->indexByName("Ball");
 
-    _manEntity->index(b)->render();
-    _manEntity->index(b)->play(true);
+
+
+    _ball->setFont(_mainFont);
+    _ball->setWindow(_window);
+    _ball->play(true);
+
+    _laser->setFont(_mainFont);
+    _laser->setWindow(_window);
+    _laser->play(true);
+
+
+    _manEntity->add(Entity::cloneOf(_ball,"Ball"));
+
+    //int b = _manEntity->indexByName("Ball");
+
+    //_manEntity->index(b)->render();
+    //_manEntity->index(b)->play(true);
 
     _manEntity->add(Entity::cloneOf(_manEntity->at("Ball"),"First Clone Ball"));
 
@@ -161,11 +259,15 @@ int Game::init()
 
     for (int i = 0; i < 5; i++)
     {
-        Entity *e = Entity::cloneOf(_manEntity->at("Ball"),"Clone Ball"+std::to_string(i));
-
+        //Entity *e = Entity::cloneOf(_manEntity->at("Ball"),"Clone Ball"+std::to_string(i));
+        Entity *e = Entity::cloneOf(_ball,"Clone Ball"+std::to_string(i));
         e->get<Position>()->_x = random(0, _screenW);
         e->get<Position>()->_y = random(0, _screenH);
+        _manEntity->add(e);
 
+        e = Entity::cloneOf(_laser,"Clone Laser"+std::to_string(i));
+        e->get<Position>()->_x = random(0, _screenW);
+        e->get<Position>()->_y = random(0, _screenH);
         _manEntity->add(e);
 
 
@@ -299,7 +401,13 @@ void Game::update()
     if (_input->getKey(ALLEGRO_KEY_DELETE) && !_keyDelete)
     {
         _keyDelete = true;
-        _manEntity->del("Clone of Ball");
+        if (_input->getKey(ALLEGRO_KEY_RSHIFT))
+            _manEntity->delAll();
+        else
+        if (_input->getKey(ALLEGRO_KEY_RCTRL))
+            _manEntity->del(random(0,_manEntity->vecSize()));
+        else
+            _manEntity->del("Clone of Ball");
     }
 
     if (!_input->getKey(ALLEGRO_KEY_INSERT)) _keyInsert = false;
@@ -307,12 +415,18 @@ void Game::update()
     {
         _keyInsert = true;
 
-        Entity *e = Entity::cloneOf(_manEntity->at("Ball"),"Clone of Ball");
+        Entity *e = Entity::cloneOf(_ball,"Clone of Ball");
 
         _manEntity->add(e);
 
         e->get<Position>()->_x = random(0, _screenW);
         e->get<Position>()->_y = random(0, _screenH);
+
+//        e = Entity::cloneOf(_laser,"Clone Laser");
+//        e->get<Position>()->_x = random(0, _screenW);
+//        e->get<Position>()->_y = random(0, _screenH);
+//        _manEntity->add(e);
+
     }
 
     _framerate->pollFramerate();
@@ -336,13 +450,26 @@ void Game::render()
     _window->beginRender();
     //al_hold_bitmap_drawing(true);
 
-    al_clear_to_color(al_map_rgb(25,60,80));
+    al_clear_to_color(al_map_rgb(15,35,65));
 
     //al_draw_bitmap(_background,0,0,0);
 
-    drawGrid(_config.at("gridW"),_config.at("gridH"),al_map_rgba(30,40,50,50), _screenW, _screenH);
+    //drawGrid(_config.at("gridW"),_config.at("gridH"),al_map_rgba(30,40,50,50), _screenW, _screenH);
 
     _manEntity->render();
+
+    al_draw_textf(_mainFont, al_map_rgb(205,20,20),
+                  2, 2, 0,
+                  "nb Entity = %i", _manEntity->vecSize());
+
+    al_draw_filled_rectangle(2.5, 16.5, _manEntity->vecSize(), 24, al_map_rgba(0,150,20,25));
+
+
+    for (int i=0 ; i<_manEntity->vecSize(); i++)
+    {
+        if (_manEntity->at(i))
+            al_draw_filled_rectangle(2.5+i, 16.5, 2.5+i+1, 24, al_map_rgba(250,150,120,250));
+    }
 
 //    al_draw_bitmap(_gamepadSNES,
 //                   _window->centerX()-al_get_bitmap_width(_gamepadSNES)/2+140,
@@ -381,10 +508,10 @@ void Game::render()
 
 //    al_draw_circle(_x, _window->centerY(), 32, al_map_rgb(255,0,0),0);
 
-    al_draw_bitmap_region(_jet,
-                          686, 53,
-                          46, 24,
-                          _x, _yMouse, 0);
+//    al_draw_bitmap_region(_jet,
+//                          686, 53,
+//                          46, 24,
+//                          _x, _yMouse, 0);
 
 
 

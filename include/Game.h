@@ -50,6 +50,7 @@ class Game : public MugenEngine
 
         ALLEGRO_BITMAP *_jet           = NULL;
 
+        bool _gamePause = false;
 
         bool _isVsync = false;
         bool _isSmooth = false;
@@ -64,6 +65,8 @@ class Game : public MugenEngine
         bool _keySwitch;
         bool _keyDelete;
         bool _keyInsert;
+
+        bool _keyPause;
 
         // Mouse
         float _xMouse;

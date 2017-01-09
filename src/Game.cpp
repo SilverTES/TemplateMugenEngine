@@ -105,7 +105,7 @@ int Game::init()
             {
                 e->get<Position>()->_z = 0;
                 //e->get<Velocity>()->_z += e->get<Velocity>()->_z;
-                if (e->get<Velocity>()->_z < 16) e->get<Velocity>()->_z += 2;
+                if (e->get<Velocity>()->_z < 16) e->get<Velocity>()->_z += e->get<Velocity>()->_z;
             }
 
             //if (e->get<Velocity>()->_z > 16) e->get<Velocity>()->_z = 16;
@@ -126,12 +126,12 @@ int Game::init()
             int y = e->get<Position>()->_y;
 
             al_draw_filled_rectangle(x+.5, y-.5,
-                                     x+e->get<Velocity>()->_z*2+.5, y+.5,
-                                     al_map_rgba(250,180,250,255));
+                                     x+e->get<Velocity>()->_z*2+.5, y+1.5,
+                                     al_map_rgba(250-e->get<Velocity>()->_z*10,180,250,255));
 
             al_draw_rectangle(x+.5, y-.5,
-                              x+e->get<Velocity>()->_z*2+.5, y+.5,
-                              al_map_rgba(250,100,20,250),
+                              x+e->get<Velocity>()->_z*2+.5, y+1.5,
+                              al_map_rgba(250-e->get<Velocity>()->_z*10,100,20+e->get<Velocity>()->_z*10,250),
                               0);
         }
 
@@ -181,7 +181,7 @@ int Game::init()
 
                 Entity *laser = Entity::cloneOf(_laser,"Clone Laser");
 
-                laser->get<Position>()->_x = e->get<Position>()->_x;
+                laser->get<Position>()->_x = e->get<Position>()->_x+26;
                 laser->get<Position>()->_y = e->get<Position>()->_y+8;
 
                 _manEntity->add(laser);
@@ -205,8 +205,8 @@ int Game::init()
             //al_draw_circle(x+.5, y+.5, 8, al_map_rgb(25,155,255),0);
 
             al_draw_bitmap_region(_jet,
-                      690, 53,
-                      42, 23,
+                      487, 259,
+                      26, 16,
                       x, y, 0);
 
 //            al_draw_line(0,y+.5,
@@ -433,13 +433,29 @@ void Game::update()
 
     al_flush_event_queue(_eventQueue);
 
-
-    _frame++;
-
     _x++;
     if (_x>_window->screenW()) _x = 0;
 
-    _manEntity->update();
+    if (!_input->getKey(ALLEGRO_KEY_ENTER)) _keyPause = false;
+    if (_input->getKey(ALLEGRO_KEY_ENTER) && !_keyPause)
+    {
+        _keyPause = true;
+        _gamePause = !_gamePause;
+
+        if (!_gamePause)
+            _fadeScreen = 0;
+    }
+
+    if (!_gamePause)
+    {
+        _frame++;
+        _manEntity->update();
+    }
+    else
+    {
+        _fadeScreen = 150;
+    }
+
 
 }
 
@@ -531,11 +547,18 @@ void Game::render()
 
     al_draw_filled_rectangle(0, 0, _screenW, _screenH, al_map_rgba(0, 0, 0, _fadeScreen));
 
+
+    if (_gamePause)
+        al_draw_text(_mainFont, al_map_rgb(205,200,20),
+                     _screenW/2, _screenH/2,
+                     -1,"-- P A U S E --");
+
     al_draw_bitmap(_mouseCursor, _xMouse, _yMouse, 0);
 
 
     al_draw_textf(_mainFont, al_map_rgb(205,200,200), _screenW -64, 2, 0,
                   "FPS: %i", _framerate->getFramerate());
+
 
 
 

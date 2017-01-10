@@ -778,7 +778,7 @@
 1484055479 source:p:\-- project dev --\-- game project --\templatemugenengine\src\game.cpp
 	"Game.h"
 
-1484056493 p:\-- project dev --\-- game project --\templatemugenengine\include\entity.h
+1484059989 p:\-- project dev --\-- game project --\templatemugenengine\include\entity.h
 	"MugenEngine.h"
 	"IPlayable.h"
 
@@ -841,6 +841,6 @@
 1483828373 source:p:\-- project dev --\-- game project --\templatemugenengine\src\ball.cpp
 	"Ball.h"
 
-1484055944 source:p:\-- project dev --\-- game project --\templatemugenengine\src\entityinit.cpp
+1484059690 source:p:\-- project dev --\-- game project --\templatemugenengine\src\entityinit.cpp
 	"Game.h"
 

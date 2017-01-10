@@ -6,29 +6,36 @@
 
 extern std::map<std::string, int> _mapComponentType; // extern for avoid multiple definition
 
-inline int componentType (std::string componentName)
+inline int componentType (std::string componentName, bool createNewComponentType = false)
 {
     // if Name of component don't exist then create a new component name
     // by increase +1 with the highest id of component !
     if (_mapComponentType.find(componentName) == _mapComponentType.end())
     {
-        int lastComponent = 0;
-
-        if (!_mapComponentType.empty())
+        if (createNewComponentType)
         {
-            // Get the highest element values in the map !
-            auto it = std::max_element(_mapComponentType.begin(), _mapComponentType.end(),
-                                       [](const std::pair<std::string, int>& p1, const std::pair<std::string, int>& p2)
+            int lastComponent = -1;
+
+            if (!_mapComponentType.empty())
             {
-                return p1.second < p2.second;
-            });
+                // Get the highest element values in the map !
+                auto it = std::max_element(_mapComponentType.begin(), _mapComponentType.end(),
+                                           [](const std::pair<std::string, int>& p1, const std::pair<std::string, int>& p2)
+                {
+                    return p1.second < p2.second;
+                });
 
-            lastComponent = it->second;
+                lastComponent = it->second;
+
+            }
+
+            _mapComponentType[componentName] = lastComponent+1;
         }
-
-        _mapComponentType[componentName] = lastComponent+1;
+        else
+        {
+            return 0;
+        }
     }
-
     return _mapComponentType[componentName];
 }
 
@@ -61,7 +68,7 @@ struct Position : public ComponentHelper<Position>
 
     Position(int x = 0, int y = 0, int z = 0)
     {
-        _type = componentType("POSITION");
+        _type = componentType("POSITION", true);
 
         //_type = POSITION;
 
@@ -79,7 +86,7 @@ struct Velocity : public ComponentHelper<Velocity>
 
     Velocity(int x = 0, int y = 0, int z = 0)
     {
-        _type = componentType("VELOCITY");
+        _type = componentType("VELOCITY", true);
         _x = x;
         _y = y;
         _z = z;
@@ -94,7 +101,7 @@ struct Tempo : public ComponentHelper<Tempo>
 
     Tempo(int duration = 100)
     {
-        _type = componentType("TEMPO");
+        _type = componentType("TEMPO", true);
         _tempo = 0;
         _duration = duration;
         _tic = false;
@@ -122,7 +129,7 @@ struct Lambda : public ComponentHelper<Lambda>
 
     Lambda()
     {
-        _type = componentType("LAMBDA");
+        _type = componentType("LAMBDA", true);
         _lambda = 0;
     }
 };

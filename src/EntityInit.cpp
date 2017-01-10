@@ -15,6 +15,9 @@ void Game::initEntity()
     _explosion->add(new Tempo(10));
     _explosion->add(new Lambda());
 
+    _explosion->del(componentType("Lambda"));
+    _explosion->del(componentType("LAMBDA"));
+
 
     auto it = _mapComponentType.begin();
 
@@ -70,6 +73,8 @@ void Game::initEntity()
 
         }
     });
+
+    _explosion->del(componentType("LAMBDA"));
 
 // Define Entity LASER !
     _laser = new Entity(nullptr, "Laser");
@@ -152,7 +157,7 @@ void Game::initEntity()
 
     _ball->add(new Position(100, 100, 50));
     _ball->add(new Velocity(1, 1, 0));
-    _ball->add(new Tempo(30));
+    _ball->add(new Tempo(32));
 
     _ball->setFont(_mainFont);
     _ball->setWindow(_window);
@@ -244,10 +249,10 @@ void Game::initEntity()
 //            al_rotate_transform(&trans, 1.0/e->get<Tempo>()->_tempo);
 //            al_use_transform(&trans);
 //
-            al_draw_bitmap_region(_jet,
-                                  487, 259,
-                                  26, 16,
-                                  x, y, 0);
+//            al_draw_bitmap_region(_jet,
+//                                  487, 259,
+//                                  26, 16,
+//                                  x, y, 0);
 //
 //            al_use_transform(&prevTrans);
 
@@ -261,7 +266,7 @@ void Game::initEntity()
                 13,8,  // Center of Rotation/Scaling
                 x, y,  // Position
                 1, 1,  // scale
-                (1.0/(z))*400,     // angle
+                0,//(1.0/(z))*400,     // angle
                 0      // flags
 
 

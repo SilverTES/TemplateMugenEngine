@@ -47,8 +47,11 @@ class Game : public MugenEngine
         ALLEGRO_BITMAP *_mouseCursor   = NULL;
         ALLEGRO_BITMAP *_gamepadSNES   = NULL;
         ALLEGRO_BITMAP *_background    = NULL;
-
         ALLEGRO_BITMAP *_jet           = NULL;
+
+        ALLEGRO_SAMPLE *_soundExplose = NULL;
+        ALLEGRO_SAMPLE *_soundLaser = NULL;
+
 
         bool _gamePause = false;
 
@@ -85,8 +88,24 @@ class Game : public MugenEngine
         int _fadeScreen = 0;
 
         Entity *_ball;
-
         Entity *_laser;
+        Entity *_explosion;
+
+        void initEntity ();
+        void doneEntity ();
+
+
+
+        double _oldTime = 0;
+        double _newTime = 0;
+        double _deltaTime =0;
+        int _fps = 0;
+        int _currentFps = 0;
+        double _averageFPS = 0;
+
+        std::vector<double> _vecFps;
+
+
 
 };
 

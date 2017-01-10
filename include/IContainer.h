@@ -121,6 +121,16 @@ class IContainer
             return _vecObject.size();
         }
 
+        int vecSizeFree() const
+        {
+            return _vecFreeObject.size();
+        }
+
+        int numActiveObject() const
+        {
+            return vecSize() - vecSizeFree();
+        }
+
         bool isFree(int id) const
         {
             if (_vecObject[id] != nullptr)

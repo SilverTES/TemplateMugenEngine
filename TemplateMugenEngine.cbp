@@ -12,7 +12,6 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-g" />
 					<Add option="-DSHOW_LOG" />
 					<Add directory="include" />
 				</Compiler>
@@ -32,6 +31,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-O3" />
 			<Add option="-Wall" />
 			<Add option="-std=c++14" />
 			<Add option="-fexceptions" />
@@ -86,6 +86,7 @@
 		<Unit filename="include/IPlayable.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Entity.cpp" />
+		<Unit filename="src/EntityInit.cpp" />
 		<Unit filename="src/EntityManager.cpp" />
 		<Unit filename="src/Game.cpp" />
 		<Unit filename="src/IPlayable.cpp" />

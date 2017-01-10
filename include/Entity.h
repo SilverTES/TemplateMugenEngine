@@ -3,33 +3,37 @@
 
 #include "MugenEngine.h"
 #include "IPlayable.h"
-//#include "Base.h"
-//
-//
-//class Entity : public Base, public IPlayable
-//{
-//    public:
-//
-//        Entity();
-//        virtual ~Entity();
-//
-//        virtual void update() = 0;
-//        virtual void render() = 0;
-//
-//    protected:
-//
-//        Vec3 _pos;
-//        Vec3 _vel;
-//
-//    private:
-//};
-enum
-{
-    POSITION = 10,
-    VELOCITY,
-    TEMPO
-};
 
+extern std::map<std::string, int> _mapComponentType; // extern for avoid multiple definition
+
+inline int lastComponent()
+{
+    if (!_mapComponentType.empty())
+    {
+
+        // Get the highest element values in the map !
+        auto it = std::max_element(_mapComponentType.begin(), _mapComponentType.end(),
+                                   [](const std::pair<std::string, int>& p1, const std::pair<std::string, int>& p2)
+        {
+            return p1.second < p2.second;
+        });
+
+        return it->second;
+    }
+    else
+        return 0;
+}
+
+inline int componentType (std::string componentName)
+{
+    if (_mapComponentType.find(componentName) == _mapComponentType.end())
+    {
+
+        _mapComponentType[componentName] = lastComponent()+1;
+    }
+
+    return _mapComponentType[componentName];
+}
 
 struct Component
 {
@@ -60,7 +64,10 @@ struct Position : public ComponentHelper<Position>
 
     Position(int x = 0, int y = 0, int z = 0)
     {
-        _type = POSITION;
+        _type = componentType("POSITION");
+
+        //_type = POSITION;
+
         _x = x;
         _y = y;
         _z = z;
@@ -75,7 +82,7 @@ struct Velocity : public ComponentHelper<Velocity>
 
     Velocity(int x = 0, int y = 0, int z = 0)
     {
-        _type = VELOCITY;
+        _type = componentType("VELOCITY");
         _x = x;
         _y = y;
         _z = z;
@@ -90,7 +97,7 @@ struct Tempo : public ComponentHelper<Tempo>
 
     Tempo(int duration = 100)
     {
-        _type = TEMPO;
+        _type = componentType("TEMPO");
         _tempo = 0;
         _duration = duration;
         _tic = false;
@@ -108,6 +115,18 @@ struct Tempo : public ComponentHelper<Tempo>
             _tic = true;
             _tempo = 0;
         }
+    }
+};
+
+
+struct Lambda : public ComponentHelper<Lambda>
+{
+    int _lambda;
+
+    Lambda()
+    {
+        _type = componentType("LAMBDA");
+        _lambda = 0;
     }
 };
 

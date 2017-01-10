@@ -6,30 +6,27 @@
 
 extern std::map<std::string, int> _mapComponentType; // extern for avoid multiple definition
 
-inline int lastComponent()
-{
-    if (!_mapComponentType.empty())
-    {
-
-        // Get the highest element values in the map !
-        auto it = std::max_element(_mapComponentType.begin(), _mapComponentType.end(),
-                                   [](const std::pair<std::string, int>& p1, const std::pair<std::string, int>& p2)
-        {
-            return p1.second < p2.second;
-        });
-
-        return it->second;
-    }
-    else
-        return 0;
-}
-
 inline int componentType (std::string componentName)
 {
+    // if Name of component don't exist then create a new component name
+    // by increase +1 with the highest id of component !
     if (_mapComponentType.find(componentName) == _mapComponentType.end())
     {
+        int lastComponent = 0;
 
-        _mapComponentType[componentName] = lastComponent()+1;
+        if (!_mapComponentType.empty())
+        {
+            // Get the highest element values in the map !
+            auto it = std::max_element(_mapComponentType.begin(), _mapComponentType.end(),
+                                       [](const std::pair<std::string, int>& p1, const std::pair<std::string, int>& p2)
+            {
+                return p1.second < p2.second;
+            });
+
+            lastComponent = it->second;
+        }
+
+        _mapComponentType[componentName] = lastComponent+1;
     }
 
     return _mapComponentType[componentName];

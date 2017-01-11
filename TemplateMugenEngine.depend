@@ -2,7 +2,7 @@
 1483829437 source:p:\-- project dev --\-- game project --\templatemugenengine\main.cpp
 	"Game.h"
 
-1484071407 p:\-- project dev --\-- game project --\templatemugenengine\include\game.h
+1484152124 p:\-- project dev --\-- game project --\templatemugenengine\include\game.h
 	"MugenEngine.h"
 	"EntityManager.h"
 	"SpriteManager.h"
@@ -776,21 +776,21 @@
 1481046983 p:\-- project dev --\-- game project --\templatemugenengine\deps\framerate.h
 	"MugenEngine.h"
 
-1484089170 source:p:\-- project dev --\-- game project --\templatemugenengine\src\game.cpp
+1484167602 source:p:\-- project dev --\-- game project --\templatemugenengine\src\game.cpp
 	"Game.h"
 
-1484094520 p:\-- project dev --\-- game project --\templatemugenengine\include\entity.h
+1484165177 p:\-- project dev --\-- game project --\templatemugenengine\include\entity.h
 	"MugenEngine.h"
 	"IPlayable.h"
 
 1484055543 source:p:\-- project dev --\-- game project --\templatemugenengine\src\entity.cpp
 	"Entity.h"
 
-1484090662 p:\-- project dev --\-- game project --\templatemugenengine\include\sprite.h
+1484165563 p:\-- project dev --\-- game project --\templatemugenengine\include\sprite.h
 	"MugenEngine.h"
 	"Animation.h"
 
-1484090693 source:p:\-- project dev --\-- game project --\templatemugenengine\src\sprite.cpp
+1484165564 source:p:\-- project dev --\-- game project --\templatemugenengine\src\sprite.cpp
 	"Sprite.h"
 
 1483828335 p:\-- project dev --\-- game project --\templatemugenengine\include\scene.h
@@ -819,7 +819,7 @@
 1484087560 source:p:\-- project dev --\-- game project --\templatemugenengine\src\iplayable.cpp
 	"IPlayable.h"
 
-1483989784 p:\-- project dev --\-- game project --\templatemugenengine\include\icontainer.h
+1484138511 p:\-- project dev --\-- game project --\templatemugenengine\include\icontainer.h
 	"Mugenengine.h"
 
 1483616707 source:p:\-- project dev --\-- game project --\templatemugenengine\src\icontainer.cpp
@@ -843,16 +843,16 @@
 1483828373 source:p:\-- project dev --\-- game project --\templatemugenengine\src\ball.cpp
 	"Ball.h"
 
-1484094491 source:p:\-- project dev --\-- game project --\templatemugenengine\src\entityinit.cpp
+1484167312 source:p:\-- project dev --\-- game project --\templatemugenengine\src\entityinit.cpp
 	"Game.h"
 
 1484065296 p:\-- project dev --\-- game project --\templatemugenengine\include\spritemanager.h
 	"Sprite.h"
 
-1484069481 source:p:\-- project dev --\-- game project --\templatemugenengine\src\animation.cpp
+1484155918 source:p:\-- project dev --\-- game project --\templatemugenengine\src\animation.cpp
 	"Animation.h"
 
-1484091905 p:\-- project dev --\-- game project --\templatemugenengine\include\animation.h
+1484155878 p:\-- project dev --\-- game project --\templatemugenengine\include\animation.h
 	"MugenEngine.h"
 
 1484061853 source:p:\-- project dev --\-- game project --\templatemugenengine\src\spritemanager.cpp

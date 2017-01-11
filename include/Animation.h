@@ -15,22 +15,28 @@ struct Frame
 {
     int _id ;
     Rect _rect;
-    int _centerX;
-    int _centerY;
+    int _delay;
+    int _count;
+    int _axeX;
+    int _axeY;
+    float _scaleX;
+    float _scaleY;
+    float _angle;
 
-    Frame(int id, Rect rect, int centerX = 0, int centerY = 0)
+    Frame(int id, Rect rect, int delay = 0, int axeX = 0, int axeY = 0, float scaleX = 1, float scaleY = 1, float angle = 0)
     {
         _id = id;
         _rect = rect;
-        _centerX = centerX;
-        _centerY = centerY;
 
-        if (centerX == 0)
-            _centerX = _rect._x;
+        _delay = delay;
+        _count = 0;
 
-        if (centerY == 0)
-            _centerY = _rect._y;
+        _axeX = axeX;
+        _axeY = axeY;
 
+        _scaleX = scaleX;
+        _scaleY = scaleY;
+        _angle = angle;
 
 
     }
@@ -45,7 +51,10 @@ class Animation
 
         void addFrame(Frame *frame);
 
-        void drawFrame(int id, int x, int y , int w = 0, int h = 0);
+        Frame *frame(unsigned index) const;
+
+        void drawFrame(unsigned index, int x, int y);
+        void drawFrame(Frame *frame, int x, int y);
         int nbFrame() const;
 
 

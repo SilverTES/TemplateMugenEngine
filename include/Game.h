@@ -8,6 +8,9 @@
 #include "EntityManager.h"
 #include "SpriteManager.h"
 
+#define DEGTORAD(x) ((x)*(ALLEGRO_PI/180.0))
+#define RADTODEG(x) ((x)/(ALLEGRO_PI*180.0))
+
 class Game : public MugenEngine
 {
     public:
@@ -51,6 +54,7 @@ class Game : public MugenEngine
         ALLEGRO_BITMAP *_jet           = NULL;
 
         ALLEGRO_BITMAP *_linkSheet     = NULL;
+        ALLEGRO_BITMAP *_knuckleSheet  = NULL;
 
         ALLEGRO_SAMPLE *_soundExplose = NULL;
         ALLEGRO_SAMPLE *_soundLaser = NULL;
@@ -72,6 +76,9 @@ class Game : public MugenEngine
         bool _keyDelete;
         bool _keyInsert;
 
+        bool _mouseButtonR;
+        bool _mouseButtonL;
+
         bool _keyPause;
 
         // Mouse
@@ -87,7 +94,9 @@ class Game : public MugenEngine
         std::shared_ptr<Framerate> _framerate = nullptr;
         std::shared_ptr<EntityManager> _manEntity = nullptr;
 
-        Animation *_myAnim = nullptr;
+        Animation *_myAnimLink = nullptr;
+        Animation *_myAnimKnuckle = nullptr;
+
         Sprite *_mySprite = nullptr;
 
         int _fadeScreen = 0;

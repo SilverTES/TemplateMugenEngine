@@ -22,10 +22,6 @@ Sprite::~Sprite()
     }
     //dtor
 }
-void Sprite::setFrame(int frame)
-{
-    _currentFrame = frame;
-}
 
 void Sprite::addAnimation(Animation* animation)
 {
@@ -33,29 +29,31 @@ void Sprite::addAnimation(Animation* animation)
         _vecAnimation.push_back(animation);
 }
 
-
-void Sprite::setAnimation(Animation* animation, int flags)
+Animation* Sprite::animation(int index) const
 {
-    if (animation != nullptr)
-        _currentAnimation = animation;
-
-    _flags = flags;
+    return _vecAnimation[index];
 }
 
-Animation* Sprite::animation() const
+int Sprite::frameDelay(Animation *animation, unsigned index) const
 {
-    return _currentAnimation;
-}
-
-
-
-void Sprite::draw(int x, int y, int frame)
-{
-    if (frame == -1)
-        frame = _currentFrame;
+    if (animation->frame(index) != nullptr)
+        return animation->frame(index)->_delay;
     else
-        _currentFrame = frame;
+        return 0;
+}
 
-    if (_currentAnimation != nullptr)
-        _currentAnimation->drawFrame(_currentFrame, x, y);
+void Sprite::drawAnimation(unsigned index, int x, int y, unsigned frame)
+{
+    _currentFrame = frame;
+
+    if (_vecAnimation[index] != nullptr)
+        _vecAnimation[index]->drawFrame(_currentFrame, x, y);
+}
+
+void Sprite::drawAnimation(Animation *animation, int x, int y, unsigned frame)
+{
+    _currentFrame = frame;
+
+    if (animation != nullptr)
+        animation->drawFrame(_currentFrame, x, y);
 }

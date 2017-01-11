@@ -36,6 +36,7 @@ int Game::init()
     //al_show_mouse_cursor(_window->display());
 
     _linkSheet = al_load_bitmap("data/link.png");
+    _knuckleSheet = al_load_bitmap("data/knuckles.png");
 
     _soundExplose = al_load_sample("data/Explosion.wav");
     _soundLaser = al_load_sample("data/LaserBlast.wav");
@@ -77,23 +78,6 @@ int Game::init()
 
     _input = std::make_shared<Controller>();
 
-
-
-
-
-    _myAnim = new Animation(_linkSheet);
-
-    _myAnim->addFrame(new Frame(0,Rect{13,10,17,25}));
-    _myAnim->addFrame(new Frame(1,Rect{38,10,17,25}));
-    _myAnim->addFrame(new Frame(2,Rect{61,10,17,25}));
-    _myAnim->addFrame(new Frame(3,Rect{324,209,19,23}));
-
-    _mySprite = new Sprite();
-
-
-    _mySprite->addAnimation(_myAnim);
-    _mySprite->setAnimation(_myAnim);
-
     initEntity();
 
     _oldTime = al_get_time();
@@ -107,8 +91,8 @@ int Game::done()
 
     doneEntity();
 
-    if (_myAnim)
-        delete _myAnim;
+    if (_myAnimLink)
+        delete _myAnimLink;
 
     if (_mySprite)
         delete _mySprite;
@@ -198,16 +182,67 @@ void Game::update()
     }
 
 
+    if (!(_mouseState.buttons & 1)) _mouseButtonL = false;
+    if (!(_mouseState.buttons & 2)) _mouseButtonR = false;
+
 
     if (_input->getKey(ALLEGRO_KEY_F1))
     {
-        _manEntity->at("First Clone Ball")->del(componentType("VELOCITY"));
-        _manEntity->at("First Clone Ball")->add(new Velocity(1,-1,0));
+        for (auto & it :_manEntity->groupAt("First Clone Ball"))
+        {
+            it->del(componentType("VELOCITY"));
+            it->add(new Velocity(-1,0,0));
+        }
+
     }
     if (_input->getKey(ALLEGRO_KEY_F2))
     {
-        _manEntity->at("First Clone Ball")->del(componentType("VELOCITY"));
+        for (auto & it :_manEntity->groupAt("First Clone Ball"))
+        {
+            it->del(componentType("VELOCITY"));
+        }
+
     }
+
+
+    if (_input->getKey(ALLEGRO_KEY_F3))
+    {
+
+        for (auto & it :_manEntity->groupAt("Clone of Ball"))
+        {
+
+            if (it->get<Velocity>() == nullptr)
+            {
+                //it->del(componentType("VELOCITY"));
+                it->add(new Velocity(-1,0,0));
+            }
+        }
+
+    }
+    if (_input->getKey(ALLEGRO_KEY_F4))
+    {
+        for (auto & it :_manEntity->groupAt("Clone of Ball"))
+        {
+            it->del(componentType("VELOCITY"));
+        }
+
+    }
+
+
+
+    if ((_mouseState.buttons & 2) && !_mouseButtonR)
+    {
+        _mouseButtonR = true;
+
+        Entity *e = Entity::cloneOf(_manEntity->at("First Clone Ball"));
+
+        e->get<Animate>()->start(0, 2, 1, 0, _myAnimKnuckle->nbFrame()-1);
+        e->get<Position>()->_x = _xMouse;
+        e->get<Position>()->_y = _yMouse;
+        e->get<Velocity>()->_x = -1;
+        _manEntity->add(e);
+    }
+
 
 
     if (!_input->getKey(ALLEGRO_KEY_DELETE)) _keyDelete = false;
@@ -231,7 +266,7 @@ void Game::update()
 
         Entity *e = Entity::cloneOf(_ball,"Clone of Ball");
 
-        _manEntity->add(e);
+        e->del(componentType("VELOCITY"));
 
 //        e->get<Position>()->_x = random(0, _screenW);
 //        e->get<Position>()->_y = random(0, _screenH);
@@ -244,6 +279,7 @@ void Game::update()
 //        e->get<Position>()->_x = random(0, _screenW);
 //        e->get<Position>()->_y = random(0, _screenH);
 //        _manEntity->add(e);
+        _manEntity->add(e);
 
     }
 
@@ -302,28 +338,28 @@ void Game::render()
     _window->beginRender();
     //al_hold_bitmap_drawing(true);
 
-    al_clear_to_color(al_map_rgb(15,35,45));
+    al_clear_to_color(al_map_rgb(15,65,85));
     //al_clear_to_color(al_map_rgb(0,0,0));
 
     //al_draw_bitmap(_background,0,0,0);
 
-    //drawGrid(_config.at("gridW"),_config.at("gridH"),al_map_rgba(30,40,50,50), _screenW, _screenH);
+    drawGrid(_config.at("gridW"),_config.at("gridH"),al_map_rgba(30,40,50,50), _screenW, _screenH);
 
     _manEntity->render();
 
-    al_draw_textf(_mainFont, al_map_rgb(205,20,20),
+    al_draw_textf(_mainFont, al_map_rgb(225,120,20),
                   2, 2, 0,
                   "nb Entity = %i / %i ", _manEntity->numActiveObject(), _manEntity->vecSize());
 
 
 
-    for (int index = 0; index < _myAnim->nbFrame(); index++)
-    {
-        _myAnim->drawFrame(index, 100 + index*32,100);
-
-        al_draw_textf(_mainFont, al_map_rgb(250,250,200), 100 + index*32, 90, 0,
-                      "%i", index);
-    }
+//    for (int index = 0; index < _myAnimLink->nbFrame(); index++)
+//    {
+//        _myAnimLink->drawFrame(index, 10 + index*32,40);
+//
+//        al_draw_textf(_mainFont, al_map_rgb(250,250,200), 10 + index*32, 40-12, 0,
+//                      "%i", index);
+//    }
 
     //_mySprite->render();
 

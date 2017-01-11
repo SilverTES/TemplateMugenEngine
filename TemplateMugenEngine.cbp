@@ -79,17 +79,23 @@
 			<Add directory="deps/SFML/lib" />
 		</Linker>
 		<Unit filename="data/config.json" />
+		<Unit filename="include/Animation.h" />
 		<Unit filename="include/Entity.h" />
 		<Unit filename="include/EntityManager.h" />
 		<Unit filename="include/Game.h" />
 		<Unit filename="include/IContainer.h" />
 		<Unit filename="include/IPlayable.h" />
+		<Unit filename="include/Sprite.h" />
+		<Unit filename="include/SpriteManager.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Animation.cpp" />
 		<Unit filename="src/Entity.cpp" />
 		<Unit filename="src/EntityInit.cpp" />
 		<Unit filename="src/EntityManager.cpp" />
 		<Unit filename="src/Game.cpp" />
 		<Unit filename="src/IPlayable.cpp" />
+		<Unit filename="src/Sprite.cpp" />
+		<Unit filename="src/SpriteManager.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -18,21 +18,19 @@ class Sprite
         virtual ~Sprite();
 
         void addAnimation(Animation *animation);
-        void setAnimation(Animation *animation, int flags = 0);
 
-        Animation *animation() const;
+        Animation *animation(int id) const;
 
-        void setFrame(int frame);
-        void draw(int x, int y, int frame = -1);  // -1 use _currentFrame;
+        int frameDelay(Animation *animation, unsigned index) const;
+
+        void drawAnimation(unsigned index, int x, int y, unsigned frame = 0);
+        void drawAnimation(Animation *animation, int x, int y, unsigned frame = 0);
 
     protected:
 
     private:
 
-        Animation  *_currentAnimation = nullptr;
         int _currentFrame = 0;
-        int _flags;
-
         std::vector<Animation*> _vecAnimation;
 
 

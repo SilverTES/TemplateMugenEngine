@@ -3,6 +3,48 @@
 void Game::initEntity()
 {
 
+    _myAnimLink = new Animation(_linkSheet);
+
+    _myAnimLink->addFrame(new Frame(0,Rect{13,10,17,25}));
+    //_myAnimLink->addFrame(new Frame(1,Rect{38,10,17,25}, 10, 0, 0, 2.0, 2.0));
+    _myAnimLink->addFrame(new Frame(1,Rect{38,10,17,25}));
+    _myAnimLink->addFrame(new Frame(2,Rect{61,10,17,25}));
+
+    _myAnimLink->addFrame(new Frame(3,Rect{84,10,17,25},4));
+    _myAnimLink->addFrame(new Frame(4,Rect{106,10,17,25}));
+    _myAnimLink->addFrame(new Frame(5,Rect{131,10,17,25}));
+
+    _myAnimLink->addFrame(new Frame(6,Rect{155,10,19,23}));
+    _myAnimLink->addFrame(new Frame(7,Rect{177,10,19,23},4));
+
+//    for (float angle = 0; angle < 360; angle +=45)
+//        _myAnimLink->addFrame(new Frame(8,
+//                                    Rect{177,10,20,24},
+//                                    0,
+//                                    10, 12,
+//                                    1.0, 1.0,
+//                                    DEGTORAD(angle)));
+
+    _myAnimKnuckle = new Animation(_knuckleSheet);
+
+    _myAnimKnuckle->addFrame(new Frame(0,Rect{3,261,32,36}, 1));
+    _myAnimKnuckle->addFrame(new Frame(0,Rect{40,261,32,36} ));
+    _myAnimKnuckle->addFrame(new Frame(0,Rect{76,261,45,36}, 1));
+    _myAnimKnuckle->addFrame(new Frame(0,Rect{127,261,35,36}, 2));
+    _myAnimKnuckle->addFrame(new Frame(0,Rect{171,261,32,36}, 1));
+    _myAnimKnuckle->addFrame(new Frame(0,Rect{205,261,36,36}));
+    _myAnimKnuckle->addFrame(new Frame(0,Rect{253,261,44,36}, 1));
+    _myAnimKnuckle->addFrame(new Frame(0,Rect{301,261,36,36}, 2));
+
+
+
+    _mySprite = new Sprite();
+    _mySprite->addAnimation(_myAnimLink);
+    _mySprite->addAnimation(_myAnimKnuckle);
+
+
+
+
     _manEntity = std::make_shared<EntityManager>();
 
 
@@ -73,8 +115,8 @@ void Game::initEntity()
 
     //_laser->setSprite(_mySprite);
 
-    //_laser->_sprite->addAnimation(_myAnim);
-    //_laser->_sprite->setAnimation(_myAnim);
+    //_laser->_sprite->addAnimation(_myAnimLink);
+    //_laser->_sprite->setAnimation(_myAnimLink);
 
     _laser->setUpdate([&](Entity * e)
     {
@@ -98,7 +140,7 @@ void Game::initEntity()
             if (e->get<Position>()->_x > e->window()->screenW() - 16)
             {
 
-                //al_play_sample(_soundExplose, 0.2, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
+                al_play_sample(_soundExplose, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
                 // Create new Explosion by clone !
                 Entity *explosion = Entity::cloneOf(_explosion, "cloneExplosion");
                 explosion->get<Position>()->_x = e->get<Position>()->_x;
@@ -155,7 +197,7 @@ void Game::initEntity()
     _ball->add(new Position(100, 100, 50));
     _ball->add(new Velocity(1, 1, 0));
     _ball->add(new Tempo(32));
-    _ball->add(new Animate(1, 6, true));
+    _ball->add(new Animate());
     _ball->add(new Lambda());
 
 
@@ -181,7 +223,7 @@ void Game::initEntity()
 
     _ball->setSprite(_mySprite);
 
-    _ball->get<Animate>()->start(0,1,0,3);
+    _ball->get<Animate>()->start(0, 2, 1, 0,_myAnimLink->nbFrame()-1);
 
     //_manEntity->at("Ball")->setUpdate([&](Entity * e)
     _ball->setUpdate([&](Entity * e)
@@ -235,7 +277,7 @@ void Game::initEntity()
 //                explosion->get<Position>()->_y = e->get<Position>()->_y;
 //                _manEntity->add(explosion);
 
-                al_play_sample(_soundLaser, 0.2, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
+                al_play_sample(_soundLaser, 0.05, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
                 // Create new Laser by clone !
                 Entity *laser = Entity::cloneOf(_laser, "Clone Laser");
                 laser->get<Position>()->_x = e->get<Position>()->_x + 26;
@@ -243,17 +285,19 @@ void Game::initEntity()
                 _manEntity->add(laser);
             }
 //            }
-
             if (e->sprite() != nullptr)
             {
-                //log("--- Begin Update ---\n");
+
+                // Manage Frame delay !
+                e->get<Animate>()->_frameDelay = _myAnimLink->frame(e->get<Animate>()->_currentFrame)->_delay;
 
                 if (e->get<Animate>() != nullptr)
                     e->get<Animate>()->update();
 
-                e->sprite()->setFrame(e->get<Animate>()->_currentFrame);
-                //log("--- End Update ---\n");
             }
+
+
+
         }
     });
 
@@ -265,7 +309,7 @@ void Game::initEntity()
         {
             int x = e->get<Position>()->_x;
             int y = e->get<Position>()->_y;
-            int z = e->get<Position>()->_z;
+//            int z = e->get<Position>()->_z;
 
             //al_draw_filled_circle(x+.5, y+.5, 8, al_map_rgba(255,0,255,50));
 
@@ -286,21 +330,22 @@ void Game::initEntity()
 //
 //            al_use_transform(&prevTrans);
 
-            al_draw_tinted_scaled_rotated_bitmap_region
-            (
-                _jet,     // source bitmap region
-                487, 259, // Position source
-                26, 16,   // Size source
-                al_map_rgb(25+(z*4), 255-(z*2), 255), // Tint
-                //500,268,
-                13,8,  // Center of Rotation/Scaling
-                x, y,  // Position
-                1, 1,  // scale
-                0,//(1.0/(z))*400,     // angle
-                0      // flags
-
-
-            );
+//
+//            al_draw_tinted_scaled_rotated_bitmap_region
+//            (
+//                _jet,     // source bitmap region
+//                487, 259, // Position source
+//                26, 16,   // Size source
+//                al_map_rgb(25+(z*4), 255-(z*2), 255), // Tint
+//                //500,268,
+//                13,8,  // Center of Rotation/Scaling
+//                x, y,  // Position
+//                1, 1,  // scale
+//                0,//(1.0/(z))*400,     // angle
+//                0      // flags
+//
+//
+//            );
 
 
 //            al_draw_line(0,y+.5,
@@ -311,24 +356,32 @@ void Game::initEntity()
 //                         x+.5,e->window()->screenH(),
 //                         al_map_rgba(55,25,20,25),0);
 
-            if (e->font() != nullptr)
-            {
+//            if (e->font() != nullptr)
+//            {
 //                al_draw_textf(e->font(), al_map_rgb(205,200,20),
-//                              x, y-12,-1,
+//                              x, y-16,-1,
 //                              "%s", e->_name.c_str());
 //
 //                al_draw_textf(e->font(), al_map_rgb(205,200,20),
 //                              x, y+8,-1,
 //                              "%i", e->_id);
-
 //                al_draw_textf(e->font(), al_map_rgb(205,200,20),
-//                              x, y+8,-1,
-//                              "%i", z);
+//                              x, y+16,-1,
+//                              "%i", e->get<Animate>()->_currentFrame);
+//            }
 
-            }
+
             if (e->sprite() != nullptr)
             {
-                e->sprite()->draw(e->get<Position>()->_x, e->get<Position>()->_y);
+                //e->sprite()->setAnimation(_myAnimKnuckle);
+
+                e->sprite()->drawAnimation
+                (
+                    _myAnimLink,
+                    e->get<Position>()->_x,
+                    e->get<Position>()->_y,
+                    e->get<Animate>()->_currentFrame
+                );
             }
 
         }
@@ -339,7 +392,74 @@ void Game::initEntity()
 
     //_manEntity->add(Entity::cloneOf(_explosion, "cloneExplosion"));
 
-    _manEntity->add(Entity::cloneOf(_ball, "Ball"));
+    _manEntity->add(Entity::cloneOf(_ball, "First Clone Ball"));
+
+    //_manEntity->at("First Clone Ball")->del(componentType("ANIMATE"));
+    //_manEntity->at("First Clone Ball")->add(new Animate(1,4,true));
+
+    _manEntity->at("First Clone Ball")->get<Velocity>()->_x = -1;
+
+    _manEntity->at("First Clone Ball")->get<Animate>()->start(0, 2, 1, 0, _myAnimKnuckle->nbFrame()-1);
+
+    _manEntity->at("First Clone Ball")->setUpdate([&](Entity * e)
+    {
+        if (e->window() != nullptr &&
+                e->get<Position>() != nullptr &&
+                e->get<Velocity>() != nullptr &&
+                e->get<Tempo>() != nullptr)
+        {
+
+            e->get<Position>()->_x += e->get<Velocity>()->_x;
+
+            if (e->get<Position>()->_x < -40)
+                e->get<Position>()->_x = e->window()->screenW()+40;
+
+
+            if (e->sprite() != nullptr)
+            {
+                // Manage Frame delay !
+                e->get<Animate>()->_frameDelay = _myAnimKnuckle->frame(e->get<Animate>()->_currentFrame)->_delay;
+
+                if (e->get<Animate>() != nullptr)
+                    e->get<Animate>()->update();
+            }
+        }
+
+    });
+
+    _manEntity->at("First Clone Ball")->setRender([&](Entity * e)
+    {
+        if (e->window() != nullptr &&
+                e->get<Position>() != nullptr)
+        {
+
+            int x = e->get<Position>()->_x;
+            int y = e->get<Position>()->_y;
+
+            if (e->sprite() != nullptr)
+            {
+                e->sprite()->drawAnimation
+                (
+                    _myAnimKnuckle,
+                    e->get<Position>()->_x,
+                    e->get<Position>()->_y,
+                    e->get<Animate>()->_currentFrame
+                );
+            }
+
+//            if (e->font() != nullptr)
+//            {
+//                al_draw_textf(e->font(), al_map_rgb(205,200,20),
+//                              x, y-16,-1,
+//                              "%i", e->get<Animate>()->_currentFrame);
+//            }
+
+        }
+
+    });
+
+
+
 
     //int b = _manEntity->indexByName("Ball");
 

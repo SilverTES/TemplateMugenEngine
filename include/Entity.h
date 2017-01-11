@@ -131,34 +131,43 @@ struct Animate : public ComponentHelper<Animate>
     int _rangeB;
 
     int _direction;
-    int _countDelay;
+
+    int _countPlayDelay;
+    int _playDelay;
+
+    int _countFrameDelay;
     int _frameDelay;
 
     bool _isPlay;
 
-    Animate(int direction = 1, int frameDelay = 1, bool isPlay = false)
+    Animate()
     {
         _type = componentType("ANIMATE", true);
+        _playDelay = 0;
         _currentFrame = 0;
         _rangeA = 0;
         _rangeB = 0;
-        _direction = direction;
-        _frameDelay = frameDelay;
-        _isPlay = isPlay;
+        _direction = 0;
     }
 
-    void start(int frame, int direction = 1,int rangeA = 0, int rangeB = -1)
+    void start(int frame, int playDelay = 0, int direction = 1,int rangeA = 0, int rangeB = 0)
     {
-        _rangeA = rangeA;
-
-        if (_rangeB != -1)
-            _rangeB = rangeB;
-
         _isPlay = true;
+        _playDelay = playDelay;
+        _countPlayDelay = 0;
+        _countFrameDelay = 0;
+
+        _rangeA = rangeA;
+        _rangeB = rangeB;
+
         _currentFrame = frame;
         _direction = direction;
 
-        _countDelay = 0;
+    }
+
+    void stop()
+    {
+        _isPlay = false;
     }
 
     void update()
@@ -166,25 +175,33 @@ struct Animate : public ComponentHelper<Animate>
         //log("--- Begin Animate Update ---\n");
         if (_isPlay)
         {
-            if (_countDelay > _frameDelay)
+            if (_countPlayDelay > _playDelay)
             {
                 _currentFrame += _direction;
-                _countDelay = 0;
+                _countPlayDelay = 0;
+
+                // A to B
+                if (_direction > 0 && _currentFrame > _rangeB)
+                {
+                    _currentFrame = _rangeA;
+                }
+
+                // B to A
+                if (_direction < 0 && _currentFrame < _rangeA)
+                {
+                    _currentFrame = _rangeB;
+                }
+
+
             }
 
-            // A to B
-            if (_currentFrame > _rangeB)
+            if (_countFrameDelay > _frameDelay)
             {
-                _currentFrame = _rangeA;
+                _countPlayDelay++;
+                _countFrameDelay = 0;
             }
 
-            // B to A
-            if (_currentFrame < _rangeA)
-            {
-                _currentFrame = _rangeB;
-            }
-
-            _countDelay++;
+            _countFrameDelay++;
 
         }
     }

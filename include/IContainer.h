@@ -156,6 +156,19 @@ class IContainer
             return 0;
         }
 
+        int idByName(std::string name) const
+        {
+            for (auto & it: _vecObject)
+            {
+                if (it != nullptr)
+                    if (it->_name == name)
+                        return it->_id;
+            }
+
+            return -1;
+        }
+        // Get unique Object : return first Object*
+
         OBJECT *at(int id) const
         {
             for (auto & it: _vecObject)
@@ -179,17 +192,41 @@ class IContainer
             return nullptr;
         }
 
-        int idByName(std::string name) const
+        // Get group Object : return vector of Object*
+
+        std::vector<OBJECT*> groupAt(int id) const
         {
+            std::vector<OBJECT*> vecObject;
+
             for (auto & it: _vecObject)
             {
                 if (it != nullptr)
-                    if (it->_name == name)
-                        return it->_id;
+                    if (it->_id == id)
+                        vecObject.push_back(it);
             }
-
-            return -1;
+            //log("OBJECT not found !");
+            return vecObject;
         }
+        std::vector<OBJECT*> groupAt(std::string name) const
+        {
+            std::vector<OBJECT*> vecObject;
+
+            for (auto & it: _vecObject)
+            {
+                if (it != nullptr)
+                    if (it->name() == name)
+                        vecObject.push_back(it);
+            }
+            //log("OBJECT not found !");
+
+            return vecObject;
+        }
+
+
+
+
+
+
 
 
     protected:

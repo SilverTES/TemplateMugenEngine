@@ -13,25 +13,10 @@ void Game::initEntity()
     _explosion->add(new Position(100, 100, 0));
     _explosion->add(new Velocity(1, 1, 0));
     _explosion->add(new Tempo(10));
-    _explosion->add(new Lambda());
 
-    _explosion->del(componentType("Lambda"));
-    _explosion->del(componentType("LAMBDA"));
-
-
-    auto it = _mapComponentType.begin();
-
-    while (it != _mapComponentType.end())
-    {
-            log ("- Type : "+ std::to_string(it->second) + " of component : " + it->first + "\n");
-            //delete it->second;
-            //it->second = nullptr;
-
-        it++;
-    }
-
-
-
+//    _explosion->add(new Lambda());
+//    _explosion->del(componentType("Lambda")); // do nothing if no exist !
+//    _explosion->del(componentType("LAMBDA")); // same
 
     _explosion->setFont(_mainFont);
     _explosion->setWindow(_window);
@@ -64,7 +49,7 @@ void Game::initEntity()
             int tempo = e->get<Tempo>()->_tempo;
 
             //al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE);
-            //al_draw_filled_circle(x,y,2+tempo, al_map_rgba(255,220,0,10));
+            al_draw_filled_circle(x,y,2+tempo, al_map_rgba(255,220,0,10));
             al_draw_circle(x, y, 2 + tempo, al_map_rgb(255, 55, 0), 0);
 //            al_draw_bitmap_region(_jet,
 //                                  379, 403,
@@ -74,7 +59,7 @@ void Game::initEntity()
         }
     });
 
-    _explosion->del(componentType("LAMBDA"));
+    //_explosion->del(componentType("LAMBDA"));
 
 // Define Entity LASER !
     _laser = new Entity(nullptr, "Laser");
@@ -85,6 +70,11 @@ void Game::initEntity()
     _laser->setFont(_mainFont);
     _laser->setWindow(_window);
     _laser->play(true);
+
+    //_laser->setSprite(_mySprite);
+
+    //_laser->_sprite->addAnimation(_myAnim);
+    //_laser->_sprite->setAnimation(_myAnim);
 
     _laser->setUpdate([&](Entity * e)
     {
@@ -108,7 +98,7 @@ void Game::initEntity()
             if (e->get<Position>()->_x > e->window()->screenW() - 16)
             {
 
-                al_play_sample(_soundExplose, 0.2, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
+                //al_play_sample(_soundExplose, 0.2, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
                 // Create new Explosion by clone !
                 Entity *explosion = Entity::cloneOf(_explosion, "cloneExplosion");
                 explosion->get<Position>()->_x = e->get<Position>()->_x;
@@ -118,7 +108,11 @@ void Game::initEntity()
                 _manEntity->del(e->_id); // Delete this Entity;
             }
 
+
+
         }
+
+
 
     });
     _laser->setRender([&](Entity * e)
@@ -143,6 +137,9 @@ void Game::initEntity()
                                   396, 317,
                                   12, 4,
                                   x, y, 0);
+
+
+
         }
 
     });
@@ -158,10 +155,33 @@ void Game::initEntity()
     _ball->add(new Position(100, 100, 50));
     _ball->add(new Velocity(1, 1, 0));
     _ball->add(new Tempo(32));
+    _ball->add(new Animate(1, 6, true));
+    _ball->add(new Lambda());
+
+
+    auto it = _mapComponentType.begin();
+
+    while (it != _mapComponentType.end())
+    {
+            log ("- Type : "+ std::to_string(it->second) + " of component : " + it->first + "\n");
+            //delete it->second;
+            //it->second = nullptr;
+
+        it++;
+    }
+
+
+
+    std::cout << "- get<Animate> = ";
+    std::cout << _ball->get<Animate>() << "\n";
 
     _ball->setFont(_mainFont);
     _ball->setWindow(_window);
     _ball->play(true);
+
+    _ball->setSprite(_mySprite);
+
+    _ball->get<Animate>()->start(0,1,0,3);
 
     //_manEntity->at("Ball")->setUpdate([&](Entity * e)
     _ball->setUpdate([&](Entity * e)
@@ -224,6 +244,16 @@ void Game::initEntity()
             }
 //            }
 
+            if (e->sprite() != nullptr)
+            {
+                //log("--- Begin Update ---\n");
+
+                if (e->get<Animate>() != nullptr)
+                    e->get<Animate>()->update();
+
+                e->sprite()->setFrame(e->get<Animate>()->_currentFrame);
+                //log("--- End Update ---\n");
+            }
         }
     });
 
@@ -296,7 +326,10 @@ void Game::initEntity()
 //                              "%i", z);
 
             }
-
+            if (e->sprite() != nullptr)
+            {
+                e->sprite()->draw(e->get<Position>()->_x, e->get<Position>()->_y);
+            }
 
         }
 
@@ -313,43 +346,36 @@ void Game::initEntity()
     //_manEntity->index(b)->render();
     //_manEntity->index(b)->play(true);
 
-    _manEntity->add(Entity::cloneOf(_manEntity->at("Ball"), "First Clone Ball"));
+//    _manEntity->add(Entity::cloneOf(_manEntity->at("Ball"), "First Clone Ball"));
+//    _manEntity->at("First Clone Ball")->get<Position>()->_x = 240;
+//    _manEntity->at("First Clone Ball")->get<Position>()->_y = 120;
+//    _manEntity->at("First Clone Ball")->del(componentType("VELOCITY"));
 
-    _manEntity->at("First Clone Ball")->get<Position>()->_x = 240;
-    _manEntity->at("First Clone Ball")->get<Position>()->_y = 120;
-
-    for (int i = 0; i < 5; i++)
-    {
-        //Entity *e = Entity::cloneOf(_manEntity->at("Ball"),"Clone Ball"+std::to_string(i));
-        Entity *e = Entity::cloneOf(_ball, "Clone Ball" + std::to_string(i));
-        e->get<Position>()->_x = random(0, _screenW);
-        e->get<Position>()->_y = random(0, _screenH);
-        _manEntity->add(e);
-
-        e = Entity::cloneOf(_laser, "Clone Laser" + std::to_string(i));
-        e->get<Position>()->_x = random(0, _screenW);
-        e->get<Position>()->_y = random(0, _screenH);
-        _manEntity->add(e);
-
-
-    }
-
-    _manEntity->at("First Clone Ball")->del(componentType("VELOCITY"));
-
-    for (int i = 0; i < _manEntity->vecSize(); i++)
-    {
-        _manEntity->index(i)->setFont(_mainFont);
-        _manEntity->index(i)->setWindow(_window);
-    }
-
-    std::function<void(std::string)> showId = [&](std::string name)
-    {
-        if (_manEntity->idByName(name) != -1)
-            std::cout << "--- index = _id of " << name << " = " << _manEntity->idByName(name) << "\n";
-    };
+//    for (int i = 0; i < 5; i++)
+//    {
+//        //Entity *e = Entity::cloneOf(_manEntity->at("Ball"),"Clone Ball"+std::to_string(i));
+//        Entity *e = Entity::cloneOf(_ball, "Clone Ball" + std::to_string(i));
+//        e->get<Position>()->_x = random(0, _screenW);
+//        e->get<Position>()->_y = random(0, _screenH);
+//        _manEntity->add(e);
+//
+//        e = Entity::cloneOf(_laser, "Clone Laser" + std::to_string(i));
+//        e->get<Position>()->_x = random(0, _screenW);
+//        e->get<Position>()->_y = random(0, _screenH);
+//        _manEntity->add(e);
+//
+//
+//    }
 
 
-    showId("Clone Ball2");
+//    std::function<void(std::string)> showId = [&](std::string name)
+//    {
+//        if (_manEntity->idByName(name) != -1)
+//            std::cout << "--- index = _id of " << name << " = " << _manEntity->idByName(name) << "\n";
+//    };
+//
+//
+//    showId("Clone Ball2");
 
 
 
@@ -358,9 +384,14 @@ void Game::initEntity()
 
 void Game::doneEntity()
 {
-    delete _ball;
-    delete _laser;
-    delete _explosion;
+    if (_ball)
+        delete _ball;
+
+    if (_laser)
+        delete _laser;
+
+    if (_explosion)
+        delete _explosion;
 }
 
 

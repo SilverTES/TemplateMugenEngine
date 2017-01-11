@@ -35,6 +35,8 @@ int Game::init()
     al_hide_mouse_cursor(_window->display());
     //al_show_mouse_cursor(_window->display());
 
+    _linkSheet = al_load_bitmap("data/link.png");
+
     _soundExplose = al_load_sample("data/Explosion.wav");
     _soundLaser = al_load_sample("data/LaserBlast.wav");
 
@@ -78,6 +80,20 @@ int Game::init()
 
 
 
+
+    _myAnim = new Animation(_linkSheet);
+
+    _myAnim->addFrame(new Frame(0,Rect{13,10,17,25}));
+    _myAnim->addFrame(new Frame(1,Rect{38,10,17,25}));
+    _myAnim->addFrame(new Frame(2,Rect{61,10,17,25}));
+    _myAnim->addFrame(new Frame(3,Rect{324,209,19,23}));
+
+    _mySprite = new Sprite();
+
+
+    _mySprite->addAnimation(_myAnim);
+    _mySprite->setAnimation(_myAnim);
+
     initEntity();
 
     _oldTime = al_get_time();
@@ -91,6 +107,13 @@ int Game::done()
 
     doneEntity();
 
+    if (_myAnim)
+        delete _myAnim;
+
+    if (_mySprite)
+        delete _mySprite;
+
+
     _manEntity.reset();
     _framerate.reset();
     _input.reset();
@@ -103,6 +126,7 @@ int Game::done()
     al_destroy_sample(_soundExplose);
     al_destroy_sample(_soundLaser);
 
+    al_destroy_bitmap(_linkSheet);
     al_destroy_bitmap(_mouseCursor);
     al_destroy_bitmap(_gamepadSNES);
     al_destroy_bitmap(_background);
@@ -266,6 +290,9 @@ void Game::update()
         _vecFps.clear();
     }
 
+    //_mySprite->setPos(280,20);
+    //_mySprite->setFrame(3);
+
 }
 
 
@@ -288,6 +315,17 @@ void Game::render()
                   2, 2, 0,
                   "nb Entity = %i / %i ", _manEntity->numActiveObject(), _manEntity->vecSize());
 
+
+
+    for (int index = 0; index < _myAnim->nbFrame(); index++)
+    {
+        _myAnim->drawFrame(index, 100 + index*32,100);
+
+        al_draw_textf(_mainFont, al_map_rgb(250,250,200), 100 + index*32, 90, 0,
+                      "%i", index);
+    }
+
+    //_mySprite->render();
 
 //    float yGraph = 32.5;
 //    al_draw_filled_rectangle(2.5, yGraph, _manEntity->vecSize(), yGraph+4, al_map_rgba(30,50,20,250));

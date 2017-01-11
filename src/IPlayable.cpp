@@ -7,6 +7,7 @@ IPlayable::IPlayable()
 
 IPlayable::~IPlayable()
 {
+    _sprite = nullptr;
     //dtor
 }
 
@@ -35,4 +36,14 @@ void IPlayable::setWindow(std::shared_ptr<Window> window)
 std::shared_ptr<Window> IPlayable::window() const
 {
     return _window;
+}
+
+void IPlayable::setSprite(Sprite* sprite)
+{
+    _sprite = sprite;
+}
+
+Sprite* IPlayable::sprite() const
+{
+    return _sprite;
 }

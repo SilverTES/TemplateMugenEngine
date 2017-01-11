@@ -6,6 +6,7 @@
 
 #include "MugenEngine.h"
 #include "EntityManager.h"
+#include "SpriteManager.h"
 
 class Game : public MugenEngine
 {
@@ -49,6 +50,8 @@ class Game : public MugenEngine
         ALLEGRO_BITMAP *_background    = NULL;
         ALLEGRO_BITMAP *_jet           = NULL;
 
+        ALLEGRO_BITMAP *_linkSheet     = NULL;
+
         ALLEGRO_SAMPLE *_soundExplose = NULL;
         ALLEGRO_SAMPLE *_soundLaser = NULL;
 
@@ -80,10 +83,12 @@ class Game : public MugenEngine
         int _x = 0;
 
 
-        std::shared_ptr<Controller> _input;
-        std::shared_ptr<Framerate> _framerate;
+        std::shared_ptr<Controller> _input = nullptr;
+        std::shared_ptr<Framerate> _framerate = nullptr;
+        std::shared_ptr<EntityManager> _manEntity = nullptr;
 
-        std::shared_ptr<EntityManager> _manEntity;
+        Animation *_myAnim = nullptr;
+        Sprite *_mySprite = nullptr;
 
         int _fadeScreen = 0;
 

@@ -123,16 +123,83 @@ struct Tempo : public ComponentHelper<Tempo>
 };
 
 
+struct Animate : public ComponentHelper<Animate>
+{
+    int _currentFrame;
+
+    int _rangeA;
+    int _rangeB;
+
+    int _direction;
+    int _countDelay;
+    int _frameDelay;
+
+    bool _isPlay;
+
+    Animate(int direction = 1, int frameDelay = 1, bool isPlay = false)
+    {
+        _type = componentType("ANIMATE", true);
+        _currentFrame = 0;
+        _rangeA = 0;
+        _rangeB = 0;
+        _direction = direction;
+        _frameDelay = frameDelay;
+        _isPlay = isPlay;
+    }
+
+    void start(int frame, int direction = 1,int rangeA = 0, int rangeB = -1)
+    {
+        _rangeA = rangeA;
+
+        if (_rangeB != -1)
+            _rangeB = rangeB;
+
+        _isPlay = true;
+        _currentFrame = frame;
+        _direction = direction;
+
+        _countDelay = 0;
+    }
+
+    void update()
+    {
+        //log("--- Begin Animate Update ---\n");
+        if (_isPlay)
+        {
+            if (_countDelay > _frameDelay)
+            {
+                _currentFrame += _direction;
+                _countDelay = 0;
+            }
+
+            // A to B
+            if (_currentFrame > _rangeB)
+            {
+                _currentFrame = _rangeA;
+            }
+
+            // B to A
+            if (_currentFrame < _rangeA)
+            {
+                _currentFrame = _rangeB;
+            }
+
+            _countDelay++;
+
+        }
+    }
+
+
+};
+
 struct Lambda : public ComponentHelper<Lambda>
 {
-    int _lambda;
-
     Lambda()
     {
         _type = componentType("LAMBDA", true);
-        _lambda = 0;
     }
 };
+
 
 struct Entity : public IPlayable
 {
@@ -173,8 +240,6 @@ struct Entity : public IPlayable
         else
             clone->_name = name;
 
-
-        //clone = original;
         //log ("--- Begin deep copy ---\n");
         std::map<int,Component*>::const_iterator it = original->_mapMember.begin();
 
@@ -184,6 +249,8 @@ struct Entity : public IPlayable
             clone->_mapMember[it->first] = (*(it->second)).clone();
             it++;
         }
+
+
         return clone;
     }
 
@@ -226,6 +293,7 @@ struct Entity : public IPlayable
         if (_mapMember[type] != nullptr)
             delete _mapMember[type];
         _mapMember.erase(type);
+
     }
 
 

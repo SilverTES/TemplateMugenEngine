@@ -40,13 +40,13 @@ class IContainer
                     _vecFreeObject.pop_back();
 
                     _vecObject[freeChildIndex] = object;
-                    object->_id = freeChildIndex;
+                    object->setId(freeChildIndex);
 
                 }
                 else
                 {
                     unsigned id = _vecObject.size();
-                    object->_id = id;
+                    object->setId(id);
                     _vecObject.push_back(object);
                 }
                 //_vecObject.push_back(object);
@@ -74,7 +74,7 @@ class IContainer
             {
                 if (it != nullptr)
                     if (it->name() == name)
-                        del(it->_id);
+                        del(it->id());
             }
         }
 
@@ -83,7 +83,7 @@ class IContainer
             for (auto & it: _vecObject)
             {
                 if (it != nullptr)
-                    del(it->_id);
+                    del(it->id());
             }
         }
 
@@ -99,18 +99,18 @@ class IContainer
 
         int firstId() const
         {
-            return _vecObject.front()->_id;
+            return _vecObject.front()->id();
         }
 
         int lastId() const
         {
-            return _vecObject.back()->_id;
+            return _vecObject.back()->id();
         }
 
         int getId(int id) const
         {
             if (id >= 0 && id < _vecObject.size() && _vecObject[id] != nullptr)
-                return _vecObject[id]->_id;
+                return _vecObject[id]->id();
             else
                 return nullptr;
         }
@@ -162,7 +162,7 @@ class IContainer
             {
                 if (it != nullptr)
                     if (it->_name == name)
-                        return it->_id;
+                        return it->id();
             }
 
             return -1;

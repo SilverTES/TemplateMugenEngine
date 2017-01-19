@@ -28,6 +28,11 @@ void Sprite::addAnimation(Animation* animation)
     if (animation != nullptr)
         _vecAnimation.push_back(animation);
 }
+int Sprite::addedAnimation() const
+{
+    return _vecAnimation.size();
+}
+
 
 Animation* Sprite::animation(int index) const
 {

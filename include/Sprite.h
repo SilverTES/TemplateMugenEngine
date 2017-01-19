@@ -18,6 +18,7 @@ class Sprite
         virtual ~Sprite();
 
         void addAnimation(Animation *animation);
+        int addedAnimation() const;
 
         Animation *animation(int id) const;
 
@@ -35,5 +36,6 @@ class Sprite
 
 
 };
+
 
 #endif // SPRITE_H

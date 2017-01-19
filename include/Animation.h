@@ -50,12 +50,12 @@ class Animation
         virtual ~Animation();
 
         void addFrame(Frame *frame);
+        int addedFrame() const;
 
         Frame *frame(unsigned index) const;
 
         void drawFrame(unsigned index, int x, int y);
         void drawFrame(Frame *frame, int x, int y);
-        int nbFrame() const;
 
 
     protected:

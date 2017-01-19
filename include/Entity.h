@@ -2,6 +2,7 @@
 #define ENTITY_H
 
 #include "MugenEngine.h"
+#include "IContainer.h"
 #include "IPlayable.h"
 
 extern std::map<std::string, int> _mapComponentType; // extern for avoid multiple definition
@@ -220,8 +221,6 @@ struct Lambda : public ComponentHelper<Lambda>
 
 struct Entity : public IPlayable
 {
-    int _id = 0;
-    std::string _name="";
 
     Entity *_parent = nullptr;
 
@@ -340,7 +339,5 @@ struct Entity : public IPlayable
 
     }
 };
-
-
 
 #endif // ENTITY_H

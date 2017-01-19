@@ -3,6 +3,10 @@
 void Game::initEntity()
 {
 
+    _scene = new Scene("Intro");
+    _scene->setFont(_mainFont);
+
+
     _myAnimLink = new Animation(_linkSheet);
 
     _myAnimLink->addFrame(new Frame(0,Rect{13,10,17,25}));
@@ -27,14 +31,14 @@ void Game::initEntity()
 
     _myAnimKnuckle = new Animation(_knuckleSheet);
 
-    _myAnimKnuckle->addFrame(new Frame(0,Rect{3,261,32,36}, 1));
-    _myAnimKnuckle->addFrame(new Frame(0,Rect{40,261,32,36} ));
-    _myAnimKnuckle->addFrame(new Frame(0,Rect{76,261,45,36}, 1));
-    _myAnimKnuckle->addFrame(new Frame(0,Rect{127,261,35,36}, 2));
+    _myAnimKnuckle->addFrame(new Frame(0,Rect{3,261,32,36},   1));
+    _myAnimKnuckle->addFrame(new Frame(0,Rect{40,261,32,36},  1));
+    _myAnimKnuckle->addFrame(new Frame(0,Rect{76,261,45,36},  1));
+    _myAnimKnuckle->addFrame(new Frame(0,Rect{127,261,35,36}, 8));
     _myAnimKnuckle->addFrame(new Frame(0,Rect{171,261,32,36}, 1));
-    _myAnimKnuckle->addFrame(new Frame(0,Rect{205,261,36,36}));
+    _myAnimKnuckle->addFrame(new Frame(0,Rect{205,261,36,36}, 1));
     _myAnimKnuckle->addFrame(new Frame(0,Rect{253,261,44,36}, 1));
-    _myAnimKnuckle->addFrame(new Frame(0,Rect{301,261,36,36}, 2));
+    _myAnimKnuckle->addFrame(new Frame(0,Rect{301,261,36,36}, 8));
 
 
 
@@ -45,7 +49,8 @@ void Game::initEntity()
 
 
 
-    _manEntity = std::make_shared<EntityManager>();
+    _layer0 = new Layer("Layer0");
+
 
 
 // Define Entity EXPLOSION
@@ -75,7 +80,7 @@ void Game::initEntity()
             e->get<Tempo>()->update();
 
             if (e->get<Tempo>()->_tic)
-                _manEntity->del(e->_id); // Delete this Entity;
+                _layer0->del(e->id()); // Delete this Entity;
         }
 
     });
@@ -145,9 +150,9 @@ void Game::initEntity()
                 Entity *explosion = Entity::cloneOf(_explosion, "cloneExplosion");
                 explosion->get<Position>()->_x = e->get<Position>()->_x;
                 explosion->get<Position>()->_y = e->get<Position>()->_y;
-                _manEntity->add(explosion);
+                _layer0->add(explosion);
 
-                _manEntity->del(e->_id); // Delete this Entity;
+                _layer0->del(e->id()); // Delete this Entity;
             }
 
 
@@ -188,11 +193,11 @@ void Game::initEntity()
 
 // Define Entity BALL :
 
-    //_manEntity->add(new Entity(nullptr,"Ball"));
+    //_layer0->add(new Entity(nullptr,"Ball"));
     _ball = new Entity(nullptr, "Ball");
 
-//    _manEntity->at("Ball")->add(new Position(100,100,0));
-//    _manEntity->at("Ball")->add(new Velocity(1,1,0));
+//    _layer0->at("Ball")->add(new Position(100,100,0));
+//    _layer0->at("Ball")->add(new Velocity(1,1,0));
 
     _ball->add(new Position(100, 100, 50));
     _ball->add(new Velocity(1, 1, 0));
@@ -223,9 +228,9 @@ void Game::initEntity()
 
     _ball->setSprite(_mySprite);
 
-    _ball->get<Animate>()->start(0, 2, 1, 0,_myAnimLink->nbFrame()-1);
+    _ball->get<Animate>()->start(0, 2, 1, 0,_myAnimLink->addedFrame()-1);
 
-    //_manEntity->at("Ball")->setUpdate([&](Entity * e)
+    //_layer0->at("Ball")->setUpdate([&](Entity * e)
     _ball->setUpdate([&](Entity * e)
     {
         if (e->window() != nullptr &&
@@ -275,14 +280,14 @@ void Game::initEntity()
 //                Entity *explosion = Entity::cloneOf(_explosion, "cloneExplosion");
 //                explosion->get<Position>()->_x = e->get<Position>()->_x;
 //                explosion->get<Position>()->_y = e->get<Position>()->_y;
-//                _manEntity->add(explosion);
+//                _layer0->add(explosion);
 
                 al_play_sample(_soundLaser, 0.05, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
                 // Create new Laser by clone !
                 Entity *laser = Entity::cloneOf(_laser, "Clone Laser");
                 laser->get<Position>()->_x = e->get<Position>()->_x + 26;
                 laser->get<Position>()->_y = e->get<Position>()->_y + 8;
-                _manEntity->add(laser);
+                _layer0->add(laser);
             }
 //            }
             if (e->sprite() != nullptr)
@@ -301,7 +306,7 @@ void Game::initEntity()
         }
     });
 
-    //_manEntity->at("Ball")->setRender([&](Entity * e)
+    //_layer0->at("Ball")->setRender([&](Entity * e)
     _ball->setRender([&](Entity * e)
     {
         if (e->window() != nullptr &&
@@ -378,8 +383,8 @@ void Game::initEntity()
                 e->sprite()->drawAnimation
                 (
                     _myAnimLink,
-                    e->get<Position>()->_x,
-                    e->get<Position>()->_y,
+                    x,
+                    y,
                     e->get<Animate>()->_currentFrame
                 );
             }
@@ -390,18 +395,18 @@ void Game::initEntity()
 
 
 
-    //_manEntity->add(Entity::cloneOf(_explosion, "cloneExplosion"));
+    //_layer0->add(Entity::cloneOf(_explosion, "cloneExplosion"));
 
-    _manEntity->add(Entity::cloneOf(_ball, "First Clone Ball"));
+    _layer0->add(Entity::cloneOf(_ball, "First Clone Ball"));
 
-    //_manEntity->at("First Clone Ball")->del(componentType("ANIMATE"));
-    //_manEntity->at("First Clone Ball")->add(new Animate(1,4,true));
+    //_layer0->at("First Clone Ball")->del(componentType("ANIMATE"));
+    //_layer0->at("First Clone Ball")->add(new Animate(1,4,true));
 
-    _manEntity->at("First Clone Ball")->get<Velocity>()->_x = -1;
+    _layer0->at("First Clone Ball")->get<Velocity>()->_x = -1;
 
-    _manEntity->at("First Clone Ball")->get<Animate>()->start(0, 2, 1, 0, _myAnimKnuckle->nbFrame()-1);
+    _layer0->at("First Clone Ball")->get<Animate>()->start(0, 2, 1, 0, _myAnimKnuckle->addedFrame()-1);
 
-    _manEntity->at("First Clone Ball")->setUpdate([&](Entity * e)
+    _layer0->at("First Clone Ball")->setUpdate([&](Entity * e)
     {
         if (e->window() != nullptr &&
                 e->get<Position>() != nullptr &&
@@ -427,7 +432,7 @@ void Game::initEntity()
 
     });
 
-    _manEntity->at("First Clone Ball")->setRender([&](Entity * e)
+    _layer0->at("First Clone Ball")->setRender([&](Entity * e)
     {
         if (e->window() != nullptr &&
                 e->get<Position>() != nullptr)
@@ -441,8 +446,8 @@ void Game::initEntity()
                 e->sprite()->drawAnimation
                 (
                     _myAnimKnuckle,
-                    e->get<Position>()->_x,
-                    e->get<Position>()->_y,
+                    x,
+                    y,
                     e->get<Animate>()->_currentFrame
                 );
             }
@@ -461,28 +466,28 @@ void Game::initEntity()
 
 
 
-    //int b = _manEntity->indexByName("Ball");
+    //int b = _layer0->indexByName("Ball");
 
-    //_manEntity->index(b)->render();
-    //_manEntity->index(b)->play(true);
+    //_layer0->index(b)->render();
+    //_layer0->index(b)->play(true);
 
-//    _manEntity->add(Entity::cloneOf(_manEntity->at("Ball"), "First Clone Ball"));
-//    _manEntity->at("First Clone Ball")->get<Position>()->_x = 240;
-//    _manEntity->at("First Clone Ball")->get<Position>()->_y = 120;
-//    _manEntity->at("First Clone Ball")->del(componentType("VELOCITY"));
+//    _layer0->add(Entity::cloneOf(_layer0->at("Ball"), "First Clone Ball"));
+//    _layer0->at("First Clone Ball")->get<Position>()->_x = 240;
+//    _layer0->at("First Clone Ball")->get<Position>()->_y = 120;
+//    _layer0->at("First Clone Ball")->del(componentType("VELOCITY"));
 
 //    for (int i = 0; i < 5; i++)
 //    {
-//        //Entity *e = Entity::cloneOf(_manEntity->at("Ball"),"Clone Ball"+std::to_string(i));
+//        //Entity *e = Entity::cloneOf(_layer0->at("Ball"),"Clone Ball"+std::to_string(i));
 //        Entity *e = Entity::cloneOf(_ball, "Clone Ball" + std::to_string(i));
 //        e->get<Position>()->_x = random(0, _screenW);
 //        e->get<Position>()->_y = random(0, _screenH);
-//        _manEntity->add(e);
+//        _layer0->add(e);
 //
 //        e = Entity::cloneOf(_laser, "Clone Laser" + std::to_string(i));
 //        e->get<Position>()->_x = random(0, _screenW);
 //        e->get<Position>()->_y = random(0, _screenH);
-//        _manEntity->add(e);
+//        _layer0->add(e);
 //
 //
 //    }
@@ -490,13 +495,18 @@ void Game::initEntity()
 
 //    std::function<void(std::string)> showId = [&](std::string name)
 //    {
-//        if (_manEntity->idByName(name) != -1)
-//            std::cout << "--- index = _id of " << name << " = " << _manEntity->idByName(name) << "\n";
+//        if (_layer0->idByName(name) != -1)
+//            std::cout << "--- index = _id of " << name << " = " << _layer0->idByName(name) << "\n";
 //    };
 //
 //
 //    showId("Clone Ball2");
 
+    _scene->add(_layer0);
+    _layer0->setWindow(_window);
+    _scene->at("Layer0")->setFont(_mainFont);
+
+    _scene->at("Layer0")->play(true);
 
 
 }
@@ -512,6 +522,12 @@ void Game::doneEntity()
 
     if (_explosion)
         delete _explosion;
+
+    if (_layer0)
+        delete _layer0;
+
+    if (_scene)
+        delete _scene;
 }
 
 

@@ -47,3 +47,18 @@ Sprite* IPlayable::sprite() const
 {
     return _sprite;
 }
+
+int IPlayable::id()
+{
+    return _id;
+}
+
+void IPlayable::setId(int id)
+{
+    _id = id;
+}
+
+std::string IPlayable::name()
+{
+    return _name;
+}

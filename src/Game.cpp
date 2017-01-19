@@ -98,7 +98,6 @@ int Game::done()
         delete _mySprite;
 
 
-    _manEntity.reset();
     _framerate.reset();
     _input.reset();
     _window.reset();
@@ -188,7 +187,7 @@ void Game::update()
 
     if (_input->getKey(ALLEGRO_KEY_F1))
     {
-        for (auto & it :_manEntity->groupAt("First Clone Ball"))
+        for (auto & it :_layer0->groupAt("First Clone Ball"))
         {
             it->del(componentType("VELOCITY"));
             it->add(new Velocity(-1,0,0));
@@ -197,7 +196,7 @@ void Game::update()
     }
     if (_input->getKey(ALLEGRO_KEY_F2))
     {
-        for (auto & it :_manEntity->groupAt("First Clone Ball"))
+        for (auto & it :_layer0->groupAt("First Clone Ball"))
         {
             it->del(componentType("VELOCITY"));
         }
@@ -208,7 +207,7 @@ void Game::update()
     if (_input->getKey(ALLEGRO_KEY_F3))
     {
 
-        for (auto & it :_manEntity->groupAt("Clone of Ball"))
+        for (auto & it :_layer0->groupAt("Clone of Ball"))
         {
 
             if (it->get<Velocity>() == nullptr)
@@ -221,7 +220,7 @@ void Game::update()
     }
     if (_input->getKey(ALLEGRO_KEY_F4))
     {
-        for (auto & it :_manEntity->groupAt("Clone of Ball"))
+        for (auto & it :_layer0->groupAt("Clone of Ball"))
         {
             it->del(componentType("VELOCITY"));
         }
@@ -234,13 +233,13 @@ void Game::update()
     {
         _mouseButtonR = true;
 
-        Entity *e = Entity::cloneOf(_manEntity->at("First Clone Ball"));
+        Entity *e = Entity::cloneOf(_layer0->at("First Clone Ball"));
 
-        e->get<Animate>()->start(0, 2, 1, 0, _myAnimKnuckle->nbFrame()-1);
+        e->get<Animate>()->start(0, 2, 1, 0, _myAnimKnuckle->addedFrame()-1);
         e->get<Position>()->_x = _xMouse;
         e->get<Position>()->_y = _yMouse;
         e->get<Velocity>()->_x = -1;
-        _manEntity->add(e);
+        _layer0->add(e);
     }
 
 
@@ -250,12 +249,12 @@ void Game::update()
     {
         _keyDelete = true;
         if (_input->getKey(ALLEGRO_KEY_RSHIFT))
-            _manEntity->delAll();
+            _layer0->delAll();
         else
         if (_input->getKey(ALLEGRO_KEY_RCTRL))
-            _manEntity->del(random(0,_manEntity->vecSize()));
+            _layer0->del(random(0,_layer0->vecSize()));
         else
-            _manEntity->del("Clone of Ball");
+            _layer0->del("Clone of Ball");
     }
 
     if (!_input->getKey(ALLEGRO_KEY_INSERT)) _keyInsert = false;
@@ -266,7 +265,7 @@ void Game::update()
 
         Entity *e = Entity::cloneOf(_ball,"Clone of Ball");
 
-        e->del(componentType("VELOCITY"));
+        //e->del(componentType("VELOCITY"));
 
 //        e->get<Position>()->_x = random(0, _screenW);
 //        e->get<Position>()->_y = random(0, _screenH);
@@ -278,8 +277,8 @@ void Game::update()
 //        e = Entity::cloneOf(_laser,"Clone Laser");
 //        e->get<Position>()->_x = random(0, _screenW);
 //        e->get<Position>()->_y = random(0, _screenH);
-//        _manEntity->add(e);
-        _manEntity->add(e);
+//        _layer0->add(e);
+        _layer0->add(e);
 
     }
 
@@ -303,12 +302,14 @@ void Game::update()
     if (!_gamePause)
     {
         _frame++;
-        _manEntity->update();
+        //_layer0->update();
+        _scene->update();
     }
     else
     {
         _fadeScreen = 150;
     }
+
 
 
     _newTime = al_get_time();
@@ -345,15 +346,16 @@ void Game::render()
 
     drawGrid(_config.at("gridW"),_config.at("gridH"),al_map_rgba(30,40,50,50), _screenW, _screenH);
 
-    _manEntity->render();
+    //_layer0->render();
+    _scene->render();
 
     al_draw_textf(_mainFont, al_map_rgb(225,120,20),
-                  2, 2, 0,
-                  "nb Entity = %i / %i ", _manEntity->numActiveObject(), _manEntity->vecSize());
+                  2, 20, 0,
+                  "nb Entity = %i / %i ", _layer0->numActiveObject(), _layer0->vecSize());
 
 
 
-//    for (int index = 0; index < _myAnimLink->nbFrame(); index++)
+//    for (int index = 0; index < _myAnimLink->addedFrame(); index++)
 //    {
 //        _myAnimLink->drawFrame(index, 10 + index*32,40);
 //
@@ -364,15 +366,15 @@ void Game::render()
     //_mySprite->render();
 
 //    float yGraph = 32.5;
-//    al_draw_filled_rectangle(2.5, yGraph, _manEntity->vecSize(), yGraph+4, al_map_rgba(30,50,20,250));
-//    for (int i=0 ; i<_manEntity->vecSize(); i++)
+//    al_draw_filled_rectangle(2.5, yGraph, _layer0->vecSize(), yGraph+4, al_map_rgba(30,50,20,250));
+//    for (int i=0 ; i<_layer0->vecSize(); i++)
 //    {
-//        if (_manEntity->at(i))
+//        if (_layer0->at(i))
 //            al_draw_filled_rectangle(2.5+i, yGraph, 2.5+i+1, yGraph+4, al_map_rgba(250,150,120,250));
 //    }
-//    al_draw_rectangle(2.5, yGraph, _manEntity->vecSize()+1.5, yGraph+4, al_map_rgba(50,150,25,250),0);
+//    al_draw_rectangle(2.5, yGraph, _layer0->vecSize()+1.5, yGraph+4, al_map_rgba(50,150,25,250),0);
 //    al_draw_text(_mainFont, al_map_rgb(205,200,20),
-//                 _manEntity->vecSize()+2.5, yGraph - 6,
+//                 _layer0->vecSize()+2.5, yGraph - 6,
 //                 0," Data usage");
 
 //    al_draw_bitmap(_gamepadSNES,

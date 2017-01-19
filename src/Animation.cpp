@@ -29,6 +29,12 @@ void Animation::addFrame(Frame *frame)
     if (frame != nullptr)
         _vecFrame.push_back(frame);
 }
+
+int Animation::addedFrame() const
+{
+    return _vecFrame.size();
+}
+
 Frame* Animation::frame(unsigned index) const
 {
     if (index >= 0 && index < _vecFrame.size())
@@ -116,9 +122,4 @@ void Animation::drawFrame(Frame* frame, int x, int y)
         );
 }
 
-
-int Animation::nbFrame() const
-{
-    return _vecFrame.size();
-}
 

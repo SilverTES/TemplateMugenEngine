@@ -22,7 +22,13 @@ class IPlayable
         void setSprite(Sprite *sprite);
         Sprite *sprite() const;
 
+        int id();
+        void setId(int id);
+        std::string name();
+
     protected:
+        int _id = 0;
+        std::string _name = "";
         bool _isPlay      = false;
         int _currentFrame = 0;
 

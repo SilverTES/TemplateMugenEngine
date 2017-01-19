@@ -3,11 +3,13 @@
 Layer::Layer(std::string name)
 {
     _name = name;
+    log("- Layer Created !\n");
     //ctor
 }
 
 Layer::~Layer()
 {
+    log("- Layer Deleted !\n");
     //dtor
 }
 

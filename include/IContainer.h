@@ -56,35 +56,37 @@ class IContainer
         void del(unsigned id)
         {
             //std::cout << "BEFORE object deleted = " << _vecObject[id] << "\n";
-            if (id >= 0 && id < _vecObject.size() && _vecObject[id] != nullptr)
-            {
-                //log ("- " + _vecObject[id]->_name + " deleted !\n");
-                delete _vecObject[id];
-                _vecObject[id] = nullptr;
+            if (!_vecObject.empty())
+                if (id >= 0 && id < _vecObject.size() && _vecObject[id] != nullptr)
+                {
+                    //log ("- " + _vecObject[id]->_name + " deleted !\n");
+                    delete _vecObject[id];
+                    _vecObject[id] = nullptr;
 
-                _vecFreeObject.push_back(id);
-            }
-
+                    _vecFreeObject.push_back(id);
+                }
             //std::cout << "AFTER object deleted = " << _vecObject[id] << "\n";
         }
 
         void del(const char *name)
         {
-            for (auto & it: _vecObject)
-            {
-                if (it != nullptr)
-                    if (it->name() == name)
-                        del(it->id());
-            }
+            if (!_vecObject.empty())
+                for (auto & it: _vecObject)
+                {
+                    if (it != nullptr)
+                        if (it->name() == name)
+                            del(it->id());
+                }
         }
 
         void delAll()
         {
-            for (auto & it: _vecObject)
-            {
-                if (it != nullptr)
-                    del(it->id());
-            }
+            if (!_vecObject.empty())
+                for (auto & it: _vecObject)
+                {
+                    if (it != nullptr)
+                        del(it->id());
+                }
         }
 
         OBJECT *first() const
@@ -147,23 +149,25 @@ class IContainer
 
         int indexByName(std::string name) const
         {
-            for (unsigned i = 0; i<_vecObject.size(); i++)
-            {
-                if (_vecObject[i] != nullptr)
-                    if (_vecObject[i]->name() == name)
-                        return i;
-            }
+            if (!_vecObject.empty())
+                for (unsigned i = 0; i<_vecObject.size(); i++)
+                {
+                    if (_vecObject[i] != nullptr)
+                        if (_vecObject[i]->name() == name)
+                            return i;
+                }
             return 0;
         }
 
         int idByName(std::string name) const
         {
-            for (auto & it: _vecObject)
-            {
-                if (it != nullptr)
-                    if (it->_name == name)
-                        return it->id();
-            }
+            if (!_vecObject.empty())
+                for (auto & it: _vecObject)
+                {
+                    if (it != nullptr)
+                        if (it->_name == name)
+                            return it->id();
+                }
 
             return -1;
         }
@@ -171,23 +175,26 @@ class IContainer
 
         OBJECT *at(int id) const
         {
-            for (auto & it: _vecObject)
-            {
-                if (it != nullptr)
-                    if (it->_id == id)
-                        return it;
-            }
+            if (!_vecObject.empty())
+                for (auto & it: _vecObject)
+                {
+                    if (it != nullptr)
+                        if (it->_id == id)
+                            return it;
+                }
             //log("OBJECT not found !");
             return nullptr;
         }
         OBJECT *at(std::string name) const
         {
-            for (auto & it: _vecObject)
-            {
-                if (it != nullptr)
-                    if (it->name() == name)
-                        return it;
-            }
+            if (!_vecObject.empty())
+                for (auto & it: _vecObject)
+                {
+                    if (it != nullptr)
+                        if (it->name() == name)
+                            return it;
+                }
+
             log("OBJECT not found !");
             return nullptr;
         }
@@ -197,13 +204,13 @@ class IContainer
         std::vector<OBJECT*> groupAt(int id) const
         {
             std::vector<OBJECT*> vecObject;
-
-            for (auto & it: _vecObject)
-            {
-                if (it != nullptr)
-                    if (it->_id == id)
-                        vecObject.push_back(it);
-            }
+            if (!_vecObject.empty())
+                for (auto & it: _vecObject)
+                {
+                    if (it != nullptr)
+                        if (it->_id == id)
+                            vecObject.push_back(it);
+                }
             //log("OBJECT not found !");
             return vecObject;
         }
@@ -211,12 +218,13 @@ class IContainer
         {
             std::vector<OBJECT*> vecObject;
 
-            for (auto & it: _vecObject)
-            {
-                if (it != nullptr)
-                    if (it->name() == name)
-                        vecObject.push_back(it);
-            }
+            if (!_vecObject.empty())
+                for (auto & it: _vecObject)
+                {
+                    if (it != nullptr)
+                        if (it->name() == name)
+                            vecObject.push_back(it);
+                }
             //log("OBJECT not found !");
 
             return vecObject;

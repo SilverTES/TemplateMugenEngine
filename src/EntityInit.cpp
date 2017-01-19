@@ -3,8 +3,32 @@
 void Game::initEntity()
 {
 
+    _director = new Director("MainDirector");
+
     _scene = new Scene("Intro");
+    _scene->setWindow(_window);
     _scene->setFont(_mainFont);
+    _scene->play(true);
+
+    _director->add(_scene);
+
+    _layer0 = new Layer("Layer0");
+    _layer0->setWindow(_window);
+    _layer0->setFont(_mainFont);
+    _layer0->play(true);
+
+    _scene->add(_layer0);
+
+    _layer1 = new Layer("Layer1");
+    _layer1->setWindow(_window);
+    _layer1->setFont(_mainFont);
+    _layer1->play(false);
+
+    _scene->add(_layer1);
+
+    //_scene->at("Layer0")->setFont(_mainFont);
+    //_scene->at("Layer0")->play(true);
+
 
 
     _myAnimLink = new Animation(_linkSheet);
@@ -45,12 +69,6 @@ void Game::initEntity()
     _mySprite = new Sprite();
     _mySprite->addAnimation(_myAnimLink);
     _mySprite->addAnimation(_myAnimKnuckle);
-
-
-
-
-    _layer0 = new Layer("Layer0");
-
 
 
 // Define Entity EXPLOSION
@@ -206,21 +224,21 @@ void Game::initEntity()
     _ball->add(new Lambda());
 
 
-    auto it = _mapComponentType.begin();
-
-    while (it != _mapComponentType.end())
-    {
-            log ("- Type : "+ std::to_string(it->second) + " of component : " + it->first + "\n");
-            //delete it->second;
-            //it->second = nullptr;
-
-        it++;
-    }
-
-
-
-    std::cout << "- get<Animate> = ";
-    std::cout << _ball->get<Animate>() << "\n";
+//    auto it = _mapComponentType.begin();
+//
+//    while (it != _mapComponentType.end())
+//    {
+//            log ("- Type : "+ std::to_string(it->second) + " of component : " + it->first + "\n");
+//            //delete it->second;
+//            //it->second = nullptr;
+//
+//        it++;
+//    }
+//
+//
+//
+//    std::cout << "- get<Animate> = ";
+//    std::cout << _ball->get<Animate>() << "\n";
 
     _ball->setFont(_mainFont);
     _ball->setWindow(_window);
@@ -502,13 +520,6 @@ void Game::initEntity()
 //
 //    showId("Clone Ball2");
 
-    _scene->add(_layer0);
-    _layer0->setWindow(_window);
-    _scene->at("Layer0")->setFont(_mainFont);
-
-    _scene->at("Layer0")->play(true);
-
-
 }
 
 
@@ -526,8 +537,14 @@ void Game::doneEntity()
     if (_layer0)
         delete _layer0;
 
+    if (_layer1)
+        delete _layer1;
+
     if (_scene)
         delete _scene;
+
+    if (_director)
+        delete _director;
 }
 
 

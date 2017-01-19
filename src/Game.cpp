@@ -181,6 +181,19 @@ void Game::update()
     }
 
 
+    if (_input->getKey(ALLEGRO_KEY_0))
+    {
+        _scene->stopAll();
+        _layer0->play(true);
+    }
+
+    if (_input->getKey(ALLEGRO_KEY_1))
+    {
+        _scene->stopAll();
+        _layer1->play(true);
+    }
+
+
     if (!(_mouseState.buttons & 1)) _mouseButtonL = false;
     if (!(_mouseState.buttons & 2)) _mouseButtonR = false;
 
@@ -239,7 +252,7 @@ void Game::update()
         e->get<Position>()->_x = _xMouse;
         e->get<Position>()->_y = _yMouse;
         e->get<Velocity>()->_x = -1;
-        _layer0->add(e);
+        _layer1->add(e);
     }
 
 
@@ -303,7 +316,8 @@ void Game::update()
     {
         _frame++;
         //_layer0->update();
-        _scene->update();
+        //_scene->update();
+        _director->update();
     }
     else
     {
@@ -347,14 +361,15 @@ void Game::render()
     drawGrid(_config.at("gridW"),_config.at("gridH"),al_map_rgba(30,40,50,50), _screenW, _screenH);
 
     //_layer0->render();
-    _scene->render();
+    //_scene->render();
+    _director->render();
 
     al_draw_textf(_mainFont, al_map_rgb(225,120,20),
                   2, 20, 0,
                   "nb Entity = %i / %i ", _layer0->numActiveObject(), _layer0->vecSize());
 
 
-
+//{ comment
 //    for (int index = 0; index < _myAnimLink->addedFrame(); index++)
 //    {
 //        _myAnimLink->drawFrame(index, 10 + index*32,40);
@@ -418,7 +433,7 @@ void Game::render()
 //                          686, 53,
 //                          46, 24,
 //                          _x, _yMouse, 0);
-
+//}
 
 
     al_draw_textf(_mainFont, al_map_rgb(205,200,20), 4, _screenH-16, 0,

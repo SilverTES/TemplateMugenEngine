@@ -2,13 +2,14 @@
 
 Scene::Scene(std::string name)
 {
-
     _name = name;
+    log("- Scene Created !\n");
     //ctor
 }
 
 Scene::~Scene()
 {
+    log("- Scene Deleted !\n");
     //dtor
 }
 void Scene::update()

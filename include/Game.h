@@ -9,6 +9,7 @@
 #include "Sprite.h"
 #include "Layer.h"
 #include "Scene.h"
+#include "Director.h"
 
 #define DEGTORAD(x) ((x)*(ALLEGRO_PI/180.0))
 #define RADTODEG(x) ((x)/(ALLEGRO_PI*180.0))
@@ -95,8 +96,10 @@ class Game : public MugenEngine
         std::shared_ptr<Controller> _input = nullptr;
         std::shared_ptr<Framerate> _framerate = nullptr;
 
+        Director *_director = nullptr;
         Scene *_scene = nullptr;
         Layer *_layer0 = nullptr;
+        Layer *_layer1 = nullptr;
 
         Animation *_myAnimLink = nullptr;
         Animation *_myAnimKnuckle = nullptr;

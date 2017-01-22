@@ -1,8 +1,8 @@
 #include "Animation.h"
 
-Animation::Animation(ALLEGRO_BITMAP *atlas)
+Animation::Animation(ALLEGRO_BITMAP *atlas):
+    _atlas(atlas)
 {
-    _atlas = atlas;
     //ctor
 }
 
@@ -42,7 +42,6 @@ Frame* Animation::frame(unsigned index) const
     else
         return nullptr;
 }
-
 
 void Animation::drawFrame(unsigned index, int x, int y)
 {

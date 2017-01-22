@@ -8,21 +8,21 @@ void Game::initEntity()
     _scene = new Scene("Intro");
     _scene->setWindow(_window);
     _scene->setFont(_mainFont);
-    _scene->play(true);
+    _scene->play();
 
     _director->add(_scene);
 
     _layer0 = new Layer("Layer0");
     _layer0->setWindow(_window);
     _layer0->setFont(_mainFont);
-    _layer0->play(true);
+    _layer0->play();
 
     _scene->add(_layer0);
 
     _layer1 = new Layer("Layer1");
     _layer1->setWindow(_window);
     _layer1->setFont(_mainFont);
-    _layer1->play(false);
+    _layer1->stop();
 
     _scene->add(_layer1);
 
@@ -85,7 +85,7 @@ void Game::initEntity()
 
     _explosion->setFont(_mainFont);
     _explosion->setWindow(_window);
-    _explosion->play(true);
+    _explosion->play();
 
 
     _explosion->setUpdate([&](Entity * e)
@@ -134,7 +134,7 @@ void Game::initEntity()
 
     _laser->setFont(_mainFont);
     _laser->setWindow(_window);
-    _laser->play(true);
+    _laser->play();
 
     //_laser->setSprite(_mySprite);
 
@@ -242,7 +242,7 @@ void Game::initEntity()
 
     _ball->setFont(_mainFont);
     _ball->setWindow(_window);
-    _ball->play(true);
+    _ball->play();
 
     _ball->setSprite(_mySprite);
 

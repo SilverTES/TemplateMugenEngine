@@ -1,8 +1,8 @@
 #include "Director.h"
 
-Director::Director(std::string name)
+Director::Director(std::string name) :
+    IPlayable(name)
 {
-    _name = name;
     log("- Director Created !\n");
     //ctor
 }
@@ -48,7 +48,7 @@ void Director::stopAll()
         for (auto & it: _vecObject)
         {
             if (it != nullptr)
-                it->play(false);
+                it->stop();
 
         }
     }

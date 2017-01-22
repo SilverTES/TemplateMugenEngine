@@ -1,8 +1,8 @@
 #include "Layer.h"
 
-Layer::Layer(std::string name)
+Layer::Layer(std::string name) :
+    IPlayable(name)
 {
-    _name = name;
     log("- Layer Created !\n");
     //ctor
 }
@@ -44,7 +44,8 @@ void Layer::render()
     al_draw_textf(_font,
                   al_map_rgb(205,200,20),
                   4, _window->screenH() - 48, 0,
-                  "LAYER : %s", _name.c_str());
+                  "LAYER : %s at Frame : %i",
+                  _name.c_str(), _currentFrame);
 }
 
 void Layer::stopAll()
@@ -54,7 +55,7 @@ void Layer::stopAll()
         for (auto & it: _vecObject)
         {
             if (it != nullptr)
-                it->play(false);
+                it->stop();
 
         }
     }

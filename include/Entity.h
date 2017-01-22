@@ -48,7 +48,7 @@ struct Component
     {
 
     }
-};
+} __attribute__((packed));
 
 
 template <class DERIVED>
@@ -58,7 +58,7 @@ struct ComponentHelper : public Component
     {
         return new DERIVED(static_cast<const DERIVED&>(*this));
     }
-};
+} __attribute__((packed));
 
 
 struct Position : public ComponentHelper<Position>
@@ -77,7 +77,7 @@ struct Position : public ComponentHelper<Position>
         _y = y;
         _z = z;
     }
-};
+} __attribute__((packed));
 
 struct Velocity : public ComponentHelper<Velocity>
 {
@@ -92,7 +92,7 @@ struct Velocity : public ComponentHelper<Velocity>
         _y = y;
         _z = z;
     }
-};
+} __attribute__((packed));
 
 struct Tempo : public ComponentHelper<Tempo>
 {
@@ -110,7 +110,7 @@ struct Tempo : public ComponentHelper<Tempo>
 
     void update()
     {
-        _tempo++;
+        ++_tempo;
 
         if (_tempo < _duration)
             _tic = false;
@@ -121,7 +121,7 @@ struct Tempo : public ComponentHelper<Tempo>
             _tempo = 0;
         }
     }
-};
+} __attribute__((packed));
 
 
 struct Animate : public ComponentHelper<Animate>
@@ -198,17 +198,17 @@ struct Animate : public ComponentHelper<Animate>
 
             if (_countFrameDelay > _frameDelay)
             {
-                _countPlayDelay++;
+                ++_countPlayDelay;
                 _countFrameDelay = 0;
             }
 
-            _countFrameDelay++;
+            ++_countFrameDelay;
 
         }
     }
 
 
-};
+} __attribute__((packed));
 
 struct Lambda : public ComponentHelper<Lambda>
 {
@@ -216,7 +216,7 @@ struct Lambda : public ComponentHelper<Lambda>
     {
         _type = componentType("LAMBDA", true);
     }
-};
+} __attribute__((packed));
 
 
 struct Entity : public IPlayable
@@ -263,17 +263,17 @@ struct Entity : public IPlayable
         {
             //clone->_mapMember[it->first] = new Component(*(it->second));
             clone->_mapMember[it->first] = (*(it->second)).clone();
-            it++;
+            ++it;
         }
 
 
         return clone;
     }
 
-    Entity(Entity *parent = nullptr, std::string name="", int id = 0)
+    Entity(Entity *parent = nullptr, std::string name = "", int id = 0):
+        IPlayable(name)
     {
         _id = id;
-        _name = name;
         _parent = parent;
 
         //log("- Entity created !\n");
@@ -292,7 +292,7 @@ struct Entity : public IPlayable
                 it->second = nullptr;
             }
 
-            it++;
+            ++it;
         }
         _mapMember.clear();
 
@@ -317,7 +317,9 @@ struct Entity : public IPlayable
     COMPONENT *get()
     {
         COMPONENT component;
+        //return static_cast<COMPONENT*>(_mapMember[component._type]);
         return static_cast<COMPONENT*>(_mapMember[component._type]);
+        //return new COMPONENT();
     }
 
     void update()

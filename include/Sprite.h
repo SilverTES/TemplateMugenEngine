@@ -1,7 +1,6 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
-#include "MugenEngine.h"
 #include "Animation.h"
 
 enum

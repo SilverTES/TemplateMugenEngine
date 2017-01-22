@@ -2,10 +2,6 @@
 #define DIRECTOR_H
 
 
-#include "MugenEngine.h"
-#include "IContainer.h"
-#include "IPlayable.h"
-#include "Layer.h"
 #include "Scene.h"
 
 class Director : public IPlayable, public IContainer<Scene>

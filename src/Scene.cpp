@@ -1,8 +1,8 @@
 #include "Scene.h"
 
-Scene::Scene(std::string name)
+Scene::Scene(std::string name) :
+    IPlayable(name)
 {
-    _name = name;
     log("- Scene Created !\n");
     //ctor
 }
@@ -43,7 +43,8 @@ void Scene::render()
     al_draw_textf(_font,
                   al_map_rgb(205,200,20),
                   4, 4, 0,
-                  "SCENE : %s", _name.c_str());
+                  "SCENE : %s at Frame : %i",
+                  _name.c_str(), _currentFrame);
 
 }
 
@@ -54,7 +55,7 @@ void Scene::stopAll()
         for (auto & it: _vecObject)
         {
             if (it != nullptr)
-                it->play(false);
+                it->stop();
 
         }
     }

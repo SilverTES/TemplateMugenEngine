@@ -184,13 +184,13 @@ void Game::update()
     if (_input->getKey(ALLEGRO_KEY_0))
     {
         _scene->stopAll();
-        _layer0->play(true);
+        _layer0->play();
     }
 
     if (_input->getKey(ALLEGRO_KEY_1))
     {
         _scene->stopAll();
-        _layer1->play(true);
+        _layer1->play();
     }
 
 

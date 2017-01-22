@@ -1,6 +1,7 @@
 #include "IPlayable.h"
 
-IPlayable::IPlayable()
+IPlayable::IPlayable(std::string name):
+    _name(name)
 {
     //ctor
 }
@@ -11,14 +12,51 @@ IPlayable::~IPlayable()
     //dtor
 }
 
-void IPlayable::play(bool isPlay)
-{
-    _isPlay = isPlay;
-}
+// Player
 bool IPlayable::isPlay() const
 {
     return _isPlay;
 }
+
+void IPlayable::play()
+{
+    _isPlay = true;
+}
+void IPlayable::stop()
+{
+    _isPlay = false;
+}
+
+void IPlayable::playAt(int frame)
+{
+    _currentFrame = frame;
+    _isPlay = true;
+}
+
+void IPlayable::stopAt(int frame)
+{
+    _currentFrame = frame;
+    _isPlay = false;
+}
+
+bool IPlayable::onFrame(int frame)
+{
+    if (_currentFrame == frame)
+        return true;
+    else
+        return false;
+}
+
+void IPlayable::prevFrame()
+{
+    ++_currentFrame;
+}
+
+void IPlayable::nextFrame()
+{
+    --_currentFrame;
+}
+
 
 void IPlayable::setFont(ALLEGRO_FONT *font)
 {

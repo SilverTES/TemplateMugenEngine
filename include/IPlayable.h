@@ -7,11 +7,21 @@
 class IPlayable
 {
     public:
-        IPlayable();
+        IPlayable(std::string name = "");
         virtual ~IPlayable();
 
-        void play(bool isPlay);
+        // Player methods
         bool isPlay() const;
+
+        void play();
+        void stop();
+
+        void playAt(int frame);
+        void stopAt(int frame);
+        bool onFrame(int frame);
+        void prevFrame();
+        void nextFrame();
+
 
         void setFont(ALLEGRO_FONT *font);
         ALLEGRO_FONT *font() const;
@@ -26,11 +36,14 @@ class IPlayable
         void setId(int id);
         std::string name();
 
+
     protected:
         int _id = 0;
-        std::string _name = "";
+        std::string _name;
         bool _isPlay      = false;
+
         int _currentFrame = 0;
+        int _nbFrame = 0;
 
         ALLEGRO_FONT *_font = nullptr;
 

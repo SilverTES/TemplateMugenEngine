@@ -37,8 +37,6 @@ struct Frame
         _scaleX = scaleX;
         _scaleY = scaleY;
         _angle = angle;
-
-
     }
 
 };

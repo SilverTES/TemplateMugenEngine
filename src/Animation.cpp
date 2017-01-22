@@ -8,23 +8,23 @@ Animation::Animation(ALLEGRO_BITMAP *atlas):
 
 Animation::~Animation()
 {
-    if (!_vecFrame.empty())
-    {
-        for (auto & it: _vecFrame)
-        {
-            if (it != nullptr)
-            {
-                delete it;
-                it = nullptr;
-            }
-
-        }
-        _vecFrame.clear();
-    }
+//    if (!_vecFrame.empty())
+//    {
+//        for (auto & it: _vecFrame)
+//        {
+//            if (it != nullptr)
+//            {
+//                delete it;
+//                it = nullptr;
+//            }
+//
+//        }
+//        _vecFrame.clear();
+//    }
     //dtor
 }
 
-void Animation::addFrame(Frame *frame)
+void Animation::addFrame(std::shared_ptr<Frame> frame)
 {
     if (frame != nullptr)
         _vecFrame.push_back(frame);
@@ -35,7 +35,7 @@ int Animation::addedFrame() const
     return _vecFrame.size();
 }
 
-Frame* Animation::frame(unsigned index) const
+std::shared_ptr<Frame> Animation::frame(unsigned index) const
 {
     if (index >= 0 && index < _vecFrame.size())
         return _vecFrame[index];
@@ -83,7 +83,7 @@ void Animation::drawFrame(unsigned index, int x, int y)
 
 }
 
-void Animation::drawFrame(Frame* frame, int x, int y)
+void Animation::drawFrame(std::shared_ptr<Frame> frame, int x, int y)
 {
     if (frame != nullptr)
         al_draw_tinted_scaled_rotated_bitmap_region

@@ -91,12 +91,8 @@ int Game::done()
 
     doneEntity();
 
-    if (_myAnimLink)
-        delete _myAnimLink;
-
-    if (_mySprite)
-        delete _mySprite;
-
+    _myAnimLink.reset();
+    _mySprite.reset();
 
     _framerate.reset();
     _input.reset();
@@ -246,7 +242,7 @@ void Game::update()
     {
         _mouseButtonR = true;
 
-        Entity *e = Entity::cloneOf(_layer0->at("First Clone Ball"));
+        std::shared_ptr<Entity> e = Entity::cloneOf(_layer0->at("First Clone Ball"));
 
         e->get<Animate>()->start(0, 2, 1, 0, _myAnimKnuckle->addedFrame()-1);
         e->get<Position>()->_x = _xMouse;
@@ -276,7 +272,7 @@ void Game::update()
     {
         _keyInsert = true;
 
-        Entity *e = Entity::cloneOf(_ball,"Clone of Ball");
+        std::shared_ptr<Entity> e = Entity::cloneOf(_ball,"Clone of Ball");
 
         //e->del(componentType("VELOCITY"));
 

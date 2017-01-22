@@ -29,8 +29,8 @@ class IPlayable
         void setWindow(std::shared_ptr<Window> window);
         std::shared_ptr<Window> window() const;
 
-        void setSprite(Sprite *sprite);
-        Sprite *sprite() const;
+        void setSprite(std::shared_ptr<Sprite> sprite);
+        std::shared_ptr<Sprite> sprite() const;
 
         int id();
         void setId(int id);
@@ -40,14 +40,14 @@ class IPlayable
     protected:
         int _id = 0;
         std::string _name;
-        bool _isPlay      = false;
+        bool _isPlay = false;
 
         int _currentFrame = 0;
         int _nbFrame = 0;
 
         ALLEGRO_FONT *_font = nullptr;
 
-        Sprite *_sprite = nullptr;
+        std::shared_ptr<Sprite> _sprite = nullptr;
 
         std::shared_ptr<Window> _window;
 

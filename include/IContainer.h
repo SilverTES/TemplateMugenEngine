@@ -13,23 +13,24 @@ class IContainer
         }
         virtual ~IContainer()
         {
-            if (!_vecObject.empty())
-            {
-                for (auto & it: _vecObject)
-                {
-                    if (it != nullptr)
-                    {
-                        delete it;
-                        it = nullptr;
-                    }
-                }
-                _vecObject.clear();
-            }
+//            if (!_vecObject.empty())
+//            {
+//                for (auto & it: _vecObject)
+//                {
+//                    if (it != nullptr)
+//                    {
+//                        delete it;
+//                        it = nullptr;
+//                    }
+//                }
+//                _vecObject.clear();
+//            }
 
-            _vecFreeObject.clear();
+//            if (!_vecFreeObject.empty())
+//                _vecFreeObject.clear();
         }
 
-        void add(OBJECT * object)
+        void add(std::shared_ptr<OBJECT> object)
         {
             if (object != nullptr)
             {
@@ -60,8 +61,8 @@ class IContainer
                 if (id >= 0 && id < _vecObject.size() && _vecObject[id] != nullptr)
                 {
                     //log ("- " + _vecObject[id]->_name + " deleted !\n");
-                    delete _vecObject[id];
-                    _vecObject[id] = nullptr;
+//                    delete _vecObject[id];
+//                    _vecObject[id] = nullptr;
 
                     _vecFreeObject.push_back(id);
                 }
@@ -89,12 +90,12 @@ class IContainer
                 }
         }
 
-        OBJECT *first() const
+        std::shared_ptr<OBJECT> first() const
         {
             return _vecObject.front();
         }
 
-        OBJECT *last() const
+        std::shared_ptr<OBJECT> last() const
         {
             return _vecObject.back();
         }
@@ -142,7 +143,7 @@ class IContainer
 
         }
 
-        OBJECT *index(int index) const
+        std::shared_ptr<OBJECT> index(int index) const
         {
             return _vecObject[index];
         }
@@ -173,7 +174,7 @@ class IContainer
         }
         // Get unique Object : return first Object*
 
-        OBJECT *at(int id) const
+        std::shared_ptr<OBJECT> at(int id) const
         {
             if (!_vecObject.empty())
                 for (auto & it: _vecObject)
@@ -185,7 +186,7 @@ class IContainer
             //log("OBJECT not found !");
             return nullptr;
         }
-        OBJECT *at(std::string name) const
+        std::shared_ptr<OBJECT> at(std::string name) const
         {
             if (!_vecObject.empty())
                 for (auto & it: _vecObject)
@@ -201,9 +202,9 @@ class IContainer
 
         // Get group Object : return vector of Object*
 
-        std::vector<OBJECT*> groupAt(int id) const
+        std::vector<std::shared_ptr<OBJECT>> groupAt(int id) const
         {
-            std::vector<OBJECT*> vecObject;
+            std::vector<std::shared_ptr<OBJECT>> vecObject;
             if (!_vecObject.empty())
                 for (auto & it: _vecObject)
                 {
@@ -214,9 +215,9 @@ class IContainer
             //log("OBJECT not found !");
             return vecObject;
         }
-        std::vector<OBJECT*> groupAt(std::string name) const
+        std::vector<std::shared_ptr<OBJECT>> groupAt(std::string name) const
         {
-            std::vector<OBJECT*> vecObject;
+            std::vector<std::shared_ptr<OBJECT>> vecObject;
 
             if (!_vecObject.empty())
                 for (auto & it: _vecObject)
@@ -238,8 +239,8 @@ class IContainer
 
 
     protected:
-        OBJECT *_parent = nullptr;
-        std::vector<OBJECT*> _vecObject;
+        std::shared_ptr<OBJECT>_parent = nullptr;
+        std::vector<std::shared_ptr<OBJECT>> _vecObject;
         std::vector<int> _vecFreeObject;
 
     private:

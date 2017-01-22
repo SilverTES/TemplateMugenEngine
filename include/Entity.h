@@ -219,37 +219,37 @@ struct Lambda : public ComponentHelper<Lambda>
 } __attribute__((packed));
 
 
-struct Entity : public IPlayable
+struct Entity : public IPlayable, public std::enable_shared_from_this<Entity>
 {
 
-    Entity *_parent = nullptr;
+    std::shared_ptr<Entity> _parent = nullptr;
 
     std::map<int, Component*> _mapMember;
 
-    std::function<void(Entity*)> _update = nullptr;
-    std::function<void(Entity*)> _render = nullptr;
+    std::function<void(std::shared_ptr<Entity>)> _update = nullptr;
+    std::function<void(std::shared_ptr<Entity>)> _render = nullptr;
 
     std::string name() const
     {
         return _name;
     }
 
-    void setUpdate(std::function<void(Entity*)> update)
+    void setUpdate(std::function<void(std::shared_ptr<Entity>)> update)
     {
         _update = update;
     }
 
-    void setRender(std::function<void(Entity*)> render)
+    void setRender(std::function<void(std::shared_ptr<Entity>)> render)
     {
         _render = render;
     }
 
 
-    static Entity *cloneOf(Entity *original, std::string name = "")
+    static std::shared_ptr<Entity> cloneOf(std::shared_ptr<Entity> original, std::string name = "")
     {
 
 
-        Entity *clone = new Entity(*original);
+        std::shared_ptr<Entity> clone = std::make_shared<Entity>(*original);
 
         if (name == "")
             clone->_name = original->_name;
@@ -270,7 +270,7 @@ struct Entity : public IPlayable
         return clone;
     }
 
-    Entity(Entity *parent = nullptr, std::string name = "", int id = 0):
+    Entity(std::shared_ptr<Entity> parent = nullptr, std::string name = "", int id = 0):
         IPlayable(name)
     {
         _id = id;
@@ -325,7 +325,7 @@ struct Entity : public IPlayable
     void update()
     {
         if (_update != nullptr)
-            _update(this);
+            _update(shared_from_this());
         else
             log("- " + _name + " update() not defined !\n");
     }
@@ -335,7 +335,7 @@ struct Entity : public IPlayable
 
 
         if (_render != nullptr)
-            _render(this);
+            _render(shared_from_this());
         else
             log("- " + _name + " render() not defined !\n");
 

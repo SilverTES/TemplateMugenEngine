@@ -47,13 +47,13 @@ class Animation
         Animation(ALLEGRO_BITMAP *atlas);
         virtual ~Animation();
 
-        void addFrame(Frame *frame);
+        void addFrame(std::shared_ptr<Frame> frame);
         int addedFrame() const;
 
-        Frame *frame(unsigned index) const;
+        std::shared_ptr<Frame> frame(unsigned index) const;
 
         void drawFrame(unsigned index, int x, int y);
-        void drawFrame(Frame *frame, int x, int y);
+        void drawFrame(std::shared_ptr<Frame> frame, int x, int y);
 
 
     protected:
@@ -62,7 +62,7 @@ class Animation
         int _nbFrame = 0;
 
         ALLEGRO_BITMAP * _atlas = nullptr;
-        std::vector<Frame*> _vecFrame;
+        std::vector<std::shared_ptr<Frame>> _vecFrame;
 };
 
 #endif // ANIMATION_H

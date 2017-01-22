@@ -16,22 +16,22 @@ class Sprite
         Sprite();
         virtual ~Sprite();
 
-        void addAnimation(Animation *animation);
+        void addAnimation(std::shared_ptr<Animation> animation);
         int addedAnimation() const;
 
-        Animation *animation(int id) const;
+        std::shared_ptr<Animation> animation(int id) const;
 
-        int frameDelay(Animation *animation, unsigned index) const;
+        int frameDelay(std::shared_ptr<Animation> animation, unsigned index) const;
 
         void drawAnimation(unsigned index, int x, int y, unsigned frame = 0);
-        void drawAnimation(Animation *animation, int x, int y, unsigned frame = 0);
+        void drawAnimation(std::shared_ptr<Animation> animation, int x, int y, unsigned frame = 0);
 
     protected:
 
     private:
 
         int _currentFrame = 0;
-        std::vector<Animation*> _vecAnimation;
+        std::vector<std::shared_ptr<Animation>> _vecAnimation;
 
 
 };

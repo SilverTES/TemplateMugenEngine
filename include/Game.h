@@ -96,21 +96,23 @@ class Game : public MugenEngine
         std::shared_ptr<Controller> _input = nullptr;
         std::shared_ptr<Framerate> _framerate = nullptr;
 
-        Director *_director = nullptr;
-        Scene *_scene = nullptr;
-        Layer *_layer0 = nullptr;
-        Layer *_layer1 = nullptr;
+        std::shared_ptr<Director> _director = nullptr;
+        std::shared_ptr<Scene> _scene = nullptr;
+        std::shared_ptr<Layer> _layer0 = nullptr;
+        std::shared_ptr<Layer> _layer1 = nullptr;
 
-        Animation *_myAnimLink = nullptr;
-        Animation *_myAnimKnuckle = nullptr;
+        std::shared_ptr<Animation> _myAnimLink = nullptr;
+        std::shared_ptr<Animation> _myAnimKnuckle = nullptr;
 
-        Sprite *_mySprite = nullptr;
+        std::shared_ptr<Sprite> _mySprite = nullptr;
+
+
+        std::shared_ptr<Entity> _ball;
+        std::shared_ptr<Entity> _laser;
+        std::shared_ptr<Entity> _explosion;
+
 
         int _fadeScreen = 0;
-
-        Entity *_ball;
-        Entity *_laser;
-        Entity *_explosion;
 
         void initEntity ();
         void doneEntity ();

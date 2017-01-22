@@ -7,23 +7,23 @@ Sprite::Sprite()
 
 Sprite::~Sprite()
 {
-    if (!_vecAnimation.empty())
-    {
-        for (auto & it: _vecAnimation)
-        {
-            if (it != nullptr)
-            {
-                delete it;
-                it = nullptr;
-            }
-
-        }
-        _vecAnimation.clear();
-    }
+//    if (!_vecAnimation.empty())
+//    {
+//        for (auto & it: _vecAnimation)
+//        {
+//            if (it != nullptr)
+//            {
+//                delete it;
+//                it = nullptr;
+//            }
+//
+//        }
+//        _vecAnimation.clear();
+//    }
     //dtor
 }
 
-void Sprite::addAnimation(Animation* animation)
+void Sprite::addAnimation(std::shared_ptr<Animation> animation)
 {
     if (animation != nullptr)
         _vecAnimation.push_back(animation);
@@ -34,12 +34,12 @@ int Sprite::addedAnimation() const
 }
 
 
-Animation* Sprite::animation(int index) const
+std::shared_ptr<Animation> Sprite::animation(int index) const
 {
     return _vecAnimation[index];
 }
 
-int Sprite::frameDelay(Animation *animation, unsigned index) const
+int Sprite::frameDelay(std::shared_ptr<Animation> animation, unsigned index) const
 {
     if (animation->frame(index) != nullptr)
         return animation->frame(index)->_delay;
@@ -55,7 +55,7 @@ void Sprite::drawAnimation(unsigned index, int x, int y, unsigned frame)
         _vecAnimation[index]->drawFrame(_currentFrame, x, y);
 }
 
-void Sprite::drawAnimation(Animation *animation, int x, int y, unsigned frame)
+void Sprite::drawAnimation(std::shared_ptr<Animation> animation, int x, int y, unsigned frame)
 {
     _currentFrame = frame;
 

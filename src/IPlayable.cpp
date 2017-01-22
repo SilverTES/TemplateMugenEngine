@@ -76,12 +76,12 @@ std::shared_ptr<Window> IPlayable::window() const
     return _window;
 }
 
-void IPlayable::setSprite(Sprite* sprite)
+void IPlayable::setSprite(std::shared_ptr<Sprite> sprite)
 {
     _sprite = sprite;
 }
 
-Sprite* IPlayable::sprite() const
+std::shared_ptr<Sprite> IPlayable::sprite() const
 {
     return _sprite;
 }

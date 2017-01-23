@@ -198,100 +198,106 @@ void Game::update()
     if (!(_mouseState.buttons & 2)) _mouseButtonR = false;
 
 
-    if (_input->getKey(ALLEGRO_KEY_F1))
-    {
-        for (auto & it :_layer0->groupAt("First Clone Ball"))
-        {
-            it->del(componentType("VELOCITY"));
-            it->add(new Velocity(-1,0,0));
-        }
 
-    }
-    if (_input->getKey(ALLEGRO_KEY_F2))
-    {
-        for (auto & it :_layer0->groupAt("First Clone Ball"))
-        {
-            it->del(componentType("VELOCITY"));
-        }
-
-    }
-
-
-    if (_input->getKey(ALLEGRO_KEY_F3))
+    if (!_gamePause)
     {
 
-        for (auto & it :_layer0->groupAt("Clone of Ball"))
+        if (_input->getKey(ALLEGRO_KEY_F1))
         {
-
-            if (it->get<Velocity>() == nullptr)
+            for (auto & it :_layer0->groupAt("First Clone Ball"))
             {
-                //it->del(componentType("VELOCITY"));
+                it->del(componentType("VELOCITY"));
                 it->add(new Velocity(-1,0,0));
             }
-        }
 
-    }
-    if (_input->getKey(ALLEGRO_KEY_F4))
-    {
-        for (auto & it :_layer0->groupAt("Clone of Ball"))
+        }
+        if (_input->getKey(ALLEGRO_KEY_F2))
         {
-            it->del(componentType("VELOCITY"));
+            for (auto & it :_layer0->groupAt("First Clone Ball"))
+            {
+                it->del(componentType("VELOCITY"));
+            }
+
         }
 
-    }
+
+        if (_input->getKey(ALLEGRO_KEY_F3))
+        {
+
+            for (auto & it :_layer0->groupAt("Clone of Ball"))
+            {
+
+                if (it->get<Velocity>() == nullptr)
+                {
+                    //it->del(componentType("VELOCITY"));
+                    it->add(new Velocity(-1,0,0));
+                }
+            }
+
+        }
+        if (_input->getKey(ALLEGRO_KEY_F4))
+        {
+            for (auto & it :_layer0->groupAt("Clone of Ball"))
+            {
+                it->del(componentType("VELOCITY"));
+            }
+
+        }
 
 
 
-    if ((_mouseState.buttons & 2) && !_mouseButtonR)
-    {
-        _mouseButtonR = true;
+        if ((_mouseState.buttons & 2) && !_mouseButtonR)
+        {
+            _mouseButtonR = true;
 
-        Entity *e = Entity::cloneOf(_layer0->at("First Clone Ball"));
+            Entity *e = Entity::cloneOf(_layer0->at("First Clone Ball"));
 
-        e->get<Animate>()->start(0, 2, 1, 0, _myAnimKnuckle->addedFrame()-1);
-        e->_x = _xMouse;
-        e->_y = _yMouse;
-        e->get<Velocity>()->_x = -1;
-        _layer1->add(e);
-    }
-
-
-
-    if (!_input->getKey(ALLEGRO_KEY_DELETE)) _keyDelete = false;
-    if (_input->getKey(ALLEGRO_KEY_DELETE) && !_keyDelete)
-    {
-        _keyDelete = true;
-        if (_input->getKey(ALLEGRO_KEY_RSHIFT))
-            _layer0->delAll();
-        else
-        if (_input->getKey(ALLEGRO_KEY_RCTRL))
-            _layer0->del(random(0,_layer0->vecSize()));
-        else
-            _layer0->del("Clone of Ball");
-    }
-
-    if (!_input->getKey(ALLEGRO_KEY_INSERT)) _keyInsert = false;
-    if ((_input->getKey(ALLEGRO_KEY_INSERT) && !_keyInsert) ||
-        _mouseState.buttons & 1)
-    {
-        _keyInsert = true;
-
-        Entity *e = Entity::cloneOf(_ball,"Clone of Ball");
-
-        //e->del(componentType("VELOCITY"));
-
-//        e->get<Position>()->_x = random(0, _screenW);
-//        e->get<Position>()->_y = random(0, _screenH);
-
-        e->_x = _xMouse;
-        e->_y = _yMouse;
+            e->get<Animate>()->start(0, 2, 1, 0, _myAnimKnuckle->addedFrame()-1);
+            e->_x = _xMouse;
+            e->_y = _yMouse;
+            e->get<Velocity>()->_x = -1;
+            _layer1->add(e);
+        }
 
 
-//        e = Entity::cloneOf(_laser,"Clone Laser");
-//        e->get<Position>()->_x = random(0, _screenW);
-//        e->get<Position>()->_y = random(0, _screenH);
-//        _layer0->add(e);
-        _layer0->add(e);
+
+        if (!_input->getKey(ALLEGRO_KEY_DELETE)) _keyDelete = false;
+        if (_input->getKey(ALLEGRO_KEY_DELETE) && !_keyDelete)
+        {
+            _keyDelete = true;
+            if (_input->getKey(ALLEGRO_KEY_RSHIFT))
+                _layer0->delAll();
+            else
+            if (_input->getKey(ALLEGRO_KEY_RCTRL))
+                _layer0->del(random(0,_layer0->vecSize()));
+            else
+                _layer0->del("Clone of Ball");
+        }
+
+        if (!_input->getKey(ALLEGRO_KEY_INSERT)) _keyInsert = false;
+        if ((_input->getKey(ALLEGRO_KEY_INSERT) && !_keyInsert) ||
+            _mouseState.buttons & 1)
+        {
+            _keyInsert = true;
+
+            Entity *e = Entity::cloneOf(_ball,"Clone of Ball");
+
+            //e->del(componentType("VELOCITY"));
+
+    //        e->get<Position>()->_x = random(0, _screenW);
+    //        e->get<Position>()->_y = random(0, _screenH);
+
+            e->_x = _xMouse;
+            e->_y = _yMouse;
+
+
+    //        e = Entity::cloneOf(_laser,"Clone Laser");
+    //        e->get<Position>()->_x = random(0, _screenW);
+    //        e->get<Position>()->_y = random(0, _screenH);
+    //        _layer0->add(e);
+            _layer0->add(e);
+
+        }
 
     }
 

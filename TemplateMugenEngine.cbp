@@ -92,7 +92,7 @@
 		<Unit filename="src/Animation.cpp" />
 		<Unit filename="src/Director.cpp" />
 		<Unit filename="src/Entity.cpp" />
-		<Unit filename="src/EntityInit.cpp" />
+		<Unit filename="src/EntityFactory.cpp" />
 		<Unit filename="src/Game.cpp" />
 		<Unit filename="src/IPlayable.cpp" />
 		<Unit filename="src/Layer.cpp" />

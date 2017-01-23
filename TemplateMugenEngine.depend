@@ -797,7 +797,7 @@
 1481046983 p:\-- project dev --\-- game project --\templatemugenengine\deps\framerate.h
 	"MugenEngine.h"
 
-1485176821 source:p:\-- project dev --\-- game project --\templatemugenengine\src\game.cpp
+1485177533 source:p:\-- project dev --\-- game project --\templatemugenengine\src\game.cpp
 	"Game.h"
 
 1485177425 p:\-- project dev --\-- game project --\templatemugenengine\include\entity.h
@@ -811,7 +811,7 @@
 1485177386 p:\-- project dev --\-- game project --\templatemugenengine\include\sprite.h
 	"Animation.h"
 
-1485176821 source:p:\-- project dev --\-- game project --\templatemugenengine\src\sprite.cpp
+1485177965 source:p:\-- project dev --\-- game project --\templatemugenengine\src\sprite.cpp
 	"Sprite.h"
 
 1484908858 p:\-- project dev --\-- game project --\templatemugenengine\include\scene.h
@@ -823,7 +823,7 @@
 1485176037 p:\-- project dev --\-- game project --\templatemugenengine\include\layer.h
 	"Entity.h"
 
-1485176187 source:p:\-- project dev --\-- game project --\templatemugenengine\src\layer.cpp
+1485178414 source:p:\-- project dev --\-- game project --\templatemugenengine\src\layer.cpp
 	"Layer.h"
 
 1483488732 p:\-- project dev --\-- game project --\templatemugenengine\include\manager.h
@@ -835,7 +835,7 @@
 	"MugenEngine.h"
 	"Sprite.h"
 
-1485176821 source:p:\-- project dev --\-- game project --\templatemugenengine\src\iplayable.cpp
+1485177490 source:p:\-- project dev --\-- game project --\templatemugenengine\src\iplayable.cpp
 	"IPlayable.h"
 
 1485177249 p:\-- project dev --\-- game project --\templatemugenengine\include\icontainer.h

@@ -34,7 +34,7 @@ int Sprite::addedAnimation() const
 }
 
 
-Animation* Sprite::animation(int index) const
+Animation *Sprite::animation(int index) const
 {
     return _vecAnimation[index];
 }

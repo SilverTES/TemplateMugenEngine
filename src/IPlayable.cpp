@@ -100,3 +100,9 @@ std::string IPlayable::name()
 {
     return _name;
 }
+void IPlayable::setPos(int x, int y, int z)
+{
+    _x = x;
+    _y = y;
+    _z = z;
+}

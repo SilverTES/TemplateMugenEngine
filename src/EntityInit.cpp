@@ -75,7 +75,8 @@ void Game::initEntity()
 
     _explosion = new Entity(nullptr, "Explosion");
 
-    _explosion->add(new Position(100, 100, 0));
+    //_explosion->add(new Position(100, 100, 0));
+    _explosion->setPos(100,100,0);
     _explosion->add(new Velocity(1, 1, 0));
     _explosion->add(new Tempo(10));
 
@@ -91,7 +92,6 @@ void Game::initEntity()
     _explosion->setUpdate([&](Entity * e)
     {
         if (e->window() != nullptr &&
-                e->get<Position>() != nullptr &&
                 e->get<Velocity>() != nullptr &&
                 e->get<Tempo>() != nullptr)
         {
@@ -106,11 +106,10 @@ void Game::initEntity()
     _explosion->setRender([&](Entity * e)
     {
         if (e->window() != nullptr &&
-                e->get<Position>() != nullptr &&
                 e->get<Tempo>() != nullptr)
         {
-            int x = e->get<Position>()->_x;
-            int y = e->get<Position>()->_y;
+            int x = e->_x;
+            int y = e->_y;
             int tempo = e->get<Tempo>()->_tempo;
 
             //al_set_blender(ALLEGRO_ADD, ALLEGRO_ONE, ALLEGRO_ONE);
@@ -129,9 +128,10 @@ void Game::initEntity()
 // Define Entity LASER !
     _laser = new Entity(nullptr, "Laser");
 
-    _laser->add(new Position(100, 200, 0));
+    //_laser->add(new Position(100, 200, 0));
+    _laser->setPos(100,200,0);
     _laser->add(new Velocity(1, 0, 1));
-
+    _laser->add(new Tempo(8));
     _laser->setFont(_mainFont);
     _laser->setWindow(_window);
     _laser->play();
@@ -145,29 +145,28 @@ void Game::initEntity()
     {
 
         if (e->window() != nullptr &&
-                e->get<Position>() != nullptr &&
                 e->get<Velocity>() != nullptr)
         {
-            e->get<Position>()->_x += e->get<Velocity>()->_x * e->get<Velocity>()->_z;
+            e->_x += e->get<Velocity>()->_x * e->get<Velocity>()->_z;
 
-            e->get<Position>()->_z++;
-            if (e->get<Position>()->_z > 8)
+            e->get<Tempo>()->update();
+            if (e->get<Tempo>()->_tic)
             {
-                e->get<Position>()->_z = 0;
+                e->get<Tempo>()->_tic = false;
                 //e->get<Velocity>()->_z += e->get<Velocity>()->_z;
                 if (e->get<Velocity>()->_z < 16) e->get<Velocity>()->_z += e->get<Velocity>()->_z;
             }
 
             //if (e->get<Velocity>()->_z > 16) e->get<Velocity>()->_z = 16;
 
-            if (e->get<Position>()->_x > e->window()->screenW() - 16)
+            if (e->_x > e->window()->screenW() - 16)
             {
 
                 al_play_sample(_soundExplose, 0.1, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
                 // Create new Explosion by clone !
                 Entity *explosion = Entity::cloneOf(_explosion, "cloneExplosion");
-                explosion->get<Position>()->_x = e->get<Position>()->_x;
-                explosion->get<Position>()->_y = e->get<Position>()->_y;
+                explosion->_x = e->_x;
+                explosion->_y = e->_y;
                 _layer0->add(explosion);
 
                 _layer0->del(e->id()); // Delete this Entity;
@@ -183,11 +182,10 @@ void Game::initEntity()
     _laser->setRender([&](Entity * e)
     {
         if (e->window() != nullptr &&
-                e->get<Position>() != nullptr &&
                 e->get<Velocity>() != nullptr)
         {
-            int x = e->get<Position>()->_x;
-            int y = e->get<Position>()->_y;
+            int x = e->_x;
+            int y = e->_y;
 
 //            al_draw_filled_rectangle(x+.5, y-.5,
 //                                     x-e->get<Velocity>()->_z+.5, y+1.5,
@@ -217,7 +215,8 @@ void Game::initEntity()
 //    _layer0->at("Ball")->add(new Position(100,100,0));
 //    _layer0->at("Ball")->add(new Velocity(1,1,0));
 
-    _ball->add(new Position(100, 100, 50));
+    //_ball->add(new Position(100, 100, 50));
+    _ball->setPos(100,100,50);
     _ball->add(new Velocity(1, 1, 0));
     _ball->add(new Tempo(32));
     _ball->add(new Animate());
@@ -252,31 +251,25 @@ void Game::initEntity()
     _ball->setUpdate([&](Entity * e)
     {
         if (e->window() != nullptr &&
-                e->get<Position>() != nullptr &&
                 e->get<Velocity>() != nullptr &&
                 e->get<Tempo>() != nullptr)
         {
-            e->get<Position>()->_x += e->get<Velocity>()->_x;
-            e->get<Position>()->_y += e->get<Velocity>()->_y;
+            e->_x += e->get<Velocity>()->_x;
+            e->_y += e->get<Velocity>()->_y;
 
 
 
-            if (e->get<Position>()->_x < 0)
+            if (e->_x < 0)
                 e->get<Velocity>()->_x = 1;
 
-            if (e->get<Position>()->_x > e->window()->screenW())
+            if (e->_x > e->window()->screenW())
                 e->get<Velocity>()->_x = -1;
 
-            if (e->get<Position>()->_y < 0)
+            if (e->_y < 0)
                 e->get<Velocity>()->_y = 1;
 
-            if (e->get<Position>()->_y > e->window()->screenH())
+            if (e->_y > e->window()->screenH())
                 e->get<Velocity>()->_y = -1;
-
-            e->get<Position>()->_z += 1;
-
-            if (e->get<Position>()->_z > 100)
-                e->get<Position>()->_z = 50;
 
 //            if (e->get<Tempo>() != nullptr)
 //            {
@@ -303,8 +296,8 @@ void Game::initEntity()
                 al_play_sample(_soundLaser, 0.05, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, NULL);
                 // Create new Laser by clone !
                 Entity *laser = Entity::cloneOf(_laser, "Clone Laser");
-                laser->get<Position>()->_x = e->get<Position>()->_x + 26;
-                laser->get<Position>()->_y = e->get<Position>()->_y + 8;
+                laser->_x = e->_x + 26;
+                laser->_y = e->_y + 8;
                 _layer0->add(laser);
             }
 //            }
@@ -327,11 +320,11 @@ void Game::initEntity()
     //_layer0->at("Ball")->setRender([&](Entity * e)
     _ball->setRender([&](Entity * e)
     {
-        if (e->window() != nullptr &&
-                e->get<Position>() != nullptr)
+        if (e->window() != nullptr)
         {
-            int x = e->get<Position>()->_x;
-            int y = e->get<Position>()->_y;
+            int x = e->_x;
+            int y = e->_y;
+            e->_z = y;
 //            int z = e->get<Position>()->_z;
 
             //al_draw_filled_circle(x+.5, y+.5, 8, al_map_rgba(255,0,255,50));
@@ -427,15 +420,14 @@ void Game::initEntity()
     _layer0->at("First Clone Ball")->setUpdate([&](Entity * e)
     {
         if (e->window() != nullptr &&
-                e->get<Position>() != nullptr &&
                 e->get<Velocity>() != nullptr &&
                 e->get<Tempo>() != nullptr)
         {
 
-            e->get<Position>()->_x += e->get<Velocity>()->_x;
+            e->_x += e->get<Velocity>()->_x;
 
-            if (e->get<Position>()->_x < -40)
-                e->get<Position>()->_x = e->window()->screenW()+40;
+            if (e->_x < -40)
+                e->_x = e->window()->screenW()+40;
 
 
             if (e->sprite() != nullptr)
@@ -452,12 +444,13 @@ void Game::initEntity()
 
     _layer0->at("First Clone Ball")->setRender([&](Entity * e)
     {
-        if (e->window() != nullptr &&
-                e->get<Position>() != nullptr)
+        if (e->window() != nullptr)
         {
 
-            int x = e->get<Position>()->_x;
-            int y = e->get<Position>()->_y;
+            int x = e->_x;
+            int y = e->_y;
+
+            e->_z = y;
 
             if (e->sprite() != nullptr)
             {
@@ -534,14 +527,14 @@ void Game::doneEntity()
     if (_explosion)
         delete _explosion;
 
-    if (_layer0)
-        delete _layer0;
-
-    if (_layer1)
-        delete _layer1;
-
-    if (_scene)
-        delete _scene;
+//    if (_layer0)
+//        delete _layer0;
+//
+//    if (_layer1)
+//        delete _layer1;
+//
+//    if (_scene)
+//        delete _scene;
 
     if (_director)
         delete _director;

@@ -249,8 +249,8 @@ void Game::update()
         Entity *e = Entity::cloneOf(_layer0->at("First Clone Ball"));
 
         e->get<Animate>()->start(0, 2, 1, 0, _myAnimKnuckle->addedFrame()-1);
-        e->get<Position>()->_x = _xMouse;
-        e->get<Position>()->_y = _yMouse;
+        e->_x = _xMouse;
+        e->_y = _yMouse;
         e->get<Velocity>()->_x = -1;
         _layer1->add(e);
     }
@@ -283,8 +283,8 @@ void Game::update()
 //        e->get<Position>()->_x = random(0, _screenW);
 //        e->get<Position>()->_y = random(0, _screenH);
 
-        e->get<Position>()->_x = _xMouse;
-        e->get<Position>()->_y = _yMouse;
+        e->_x = _xMouse;
+        e->_y = _yMouse;
 
 
 //        e = Entity::cloneOf(_laser,"Clone Laser");

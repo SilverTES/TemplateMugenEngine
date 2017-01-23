@@ -4,9 +4,26 @@
 #include "MugenEngine.h"
 #include "Sprite.h"
 
-class IPlayable
+struct IPlayable
 {
-    public:
+        bool _isPlay      = false;
+        int _id = 0;
+        int _currentFrame = 0;
+        int _nbFrame = 0;
+
+        int _x = 0;
+        int _y = 0;
+        int _z = 0;
+
+        std::string _name;
+
+        ALLEGRO_FONT *_font = nullptr;
+
+        Sprite *_sprite = nullptr;
+
+        std::shared_ptr<Window> _window;
+
+
         IPlayable(std::string name = "");
         virtual ~IPlayable();
 
@@ -36,22 +53,11 @@ class IPlayable
         void setId(int id);
         std::string name();
 
+        void setPos(int x, int y, int z);
 
-    protected:
-        int _id = 0;
-        std::string _name;
-        bool _isPlay      = false;
 
-        int _currentFrame = 0;
-        int _nbFrame = 0;
 
-        ALLEGRO_FONT *_font = nullptr;
 
-        Sprite *_sprite = nullptr;
-
-        std::shared_ptr<Window> _window;
-
-    private:
 };
 
 #endif // IPLAYABLE_H

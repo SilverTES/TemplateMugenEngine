@@ -61,23 +61,23 @@ struct ComponentHelper : public Component
 } __attribute__((packed));
 
 
-struct Position : public ComponentHelper<Position>
-{
-    int _x;
-    int _y;
-    int _z;
-
-    Position(int x = 0, int y = 0, int z = 0)
-    {
-        _type = componentType("POSITION", true);
-
-        //_type = POSITION;
-
-        _x = x;
-        _y = y;
-        _z = z;
-    }
-} __attribute__((packed));
+//struct Position : public ComponentHelper<Position>
+//{
+//    int _x;
+//    int _y;
+//    int _z;
+//
+//    Position(int x = 0, int y = 0, int z = 0)
+//    {
+//        _type = componentType("POSITION", true);
+//
+//        //_type = POSITION;
+//
+//        _x = x;
+//        _y = y;
+//        _z = z;
+//    }
+//} __attribute__((packed));
 
 struct Velocity : public ComponentHelper<Velocity>
 {
@@ -283,18 +283,21 @@ struct Entity : public IPlayable
     {
         std::map<int,Component*>::iterator it = _mapMember.begin();
 
-        while (it != _mapMember.end())
+        if (!_mapMember.empty())
         {
-            if (it->second != nullptr)
+            while (it != _mapMember.end())
             {
-                //log ("- Delete Component:"+ std::to_string(it->second->_type) + " of Entity: " + _name + "\n");
-                delete it->second;
-                it->second = nullptr;
-            }
+                if (it->second != nullptr)
+                {
+                    //log ("- Delete Component:"+ std::to_string(it->second->_type) + " of Entity: " + _name + "\n");
+                    delete it->second;
+                    it->second = nullptr;
+                }
 
-            ++it;
+                ++it;
+            }
+            _mapMember.clear();
         }
-        _mapMember.clear();
 
         //log("- Delete Entity: " + _name + "\n");
     }

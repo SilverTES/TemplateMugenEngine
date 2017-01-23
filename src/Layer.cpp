@@ -26,18 +26,27 @@ void Layer::update()
 
         }
     }
+
+    sortZIndex(_vecObject, _vecZIndex);
 }
 
 void Layer::render()
 {
     if (!_vecObject.empty())
     {
-        for (auto & it: _vecObject)
-        {
-            if (it != nullptr)
-                if (it->isPlay())
-                    it->render();
+//        for (auto & it: _vecObject)
+//        {
+//            if (it != nullptr)
+//                if (it->isPlay())
+//                    it->render();
+//
+//        }
 
+        for (unsigned index = 0; index < _vecObject.size(); ++index)
+        {
+            if (_vecObject[zIndex(index)] != nullptr)
+                if (_vecObject[zIndex(index)]->isPlay())
+                    _vecObject[zIndex(index)]->render();
         }
     }
 
@@ -59,4 +68,38 @@ void Layer::stopAll()
 
         }
     }
+}
+
+void Layer::sortZIndex(std::vector<Entity*> &vecEntity, std::vector<ZIndex*> &vecZIndex)
+{
+
+    if (vecZIndex.size() < vecEntity.size())
+    {
+        //log("- Resize ZIndex !\n");
+        for (unsigned index = vecZIndex.size(); index < vecEntity.size(); ++index)
+        {
+            vecZIndex.push_back(new ZIndex());
+        }
+    }
+
+    for (unsigned index = 0; index < vecZIndex.size(); ++index)
+    {
+        vecZIndex[index]->_index = index;
+        if (vecEntity[index] != nullptr)
+            vecZIndex[index]->_z = vecEntity[index]->_z;
+        else
+            vecZIndex[index]->_z = 0;
+    }
+
+    std::stable_sort(vecZIndex.begin(), vecZIndex.end(), []( const ZIndex *a, const ZIndex *b ) ->bool
+    {
+        return a->_z < b->_z;
+    });
+
+
+}
+
+unsigned Layer::zIndex(unsigned index)
+{
+    return _vecZIndex[index]->_index;
 }

@@ -3,6 +3,12 @@
 
 #include "Entity.h"
 
+struct ZIndex
+{
+    int _z = 0;
+    int _index = 0;
+};
+
 
 class Layer : public IPlayable, public IContainer<Entity>
 {
@@ -16,6 +22,10 @@ class Layer : public IPlayable, public IContainer<Entity>
     protected:
 
     private:
+        std::vector<ZIndex*> _vecZIndex;
+
+        void sortZIndex(std::vector<Entity*> &vecEntity, std::vector<ZIndex*> &vecZIndex);
+        unsigned zIndex(unsigned index);
 };
 
 
